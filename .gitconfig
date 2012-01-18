@@ -1,0 +1,12 @@
+[user]
+	name = Craig Israel
+	email = craig.israel@healthways.com
+[color]
+	ui = true
+[mergetool "diffmerge"]
+	cmd = diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
+	trustExitCode = false
+[diff]
+	tool = diffmerge
+[merge]
+	tool = diffmerge
