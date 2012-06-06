@@ -10,3 +10,11 @@
 	tool = diffmerge
 [merge]
 	tool = diffmerge
+[core]
+  autocrlf = false
+  safecrlf = false
+  pager = less -q
+[alias]
+  s = status
+  co = checkout
+
