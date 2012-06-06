@@ -1,3 +1,3 @@
-if defined?(Rails) && Rails.env
+if defined?(ActiveRecord)
   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
