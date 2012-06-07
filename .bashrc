@@ -4,6 +4,7 @@ export dev=~/Documents/Dev
 
 alias ll="ls -al"
 alias brake="bundle exec rake"
+alias vim="open -a MacVim.app"
 
 # git
 alias gs="git status"

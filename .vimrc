@@ -53,6 +53,6 @@ augroup myfiletypes
 augroup END
 
 set foldmethod=indent
-set foldnestmasx=10
+set foldnestmax=10
 set nofoldenable
 set foldlevel=2
