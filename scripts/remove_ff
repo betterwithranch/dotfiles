@@ -1,0 +1,7 @@
+#! /bin/bash
+
+rm -rf /Applications/Firefox.app
+rm -rf ~/Library/Preferences/org.mozilla.firefox.plist
+rm -rf ~/Library/Application\ Support/Firefox
+
+echo 'Firefox uninstalled successfully'
