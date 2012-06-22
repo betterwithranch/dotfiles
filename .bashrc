@@ -1,9 +1,10 @@
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export dev=~/dev
+export PATH="/usr/local/bin:/usr/local/sbin:$dev/dotfiles/scripts:$PATH"
 export AUTOFEATURE=true
-export dev=~/Documents/Dev
 
 alias ll="ls -al"
 alias brake="bundle exec rake"
+alias ss=". ~/.bashrc"
 
 # git
 alias gs="git status"
@@ -24,6 +25,7 @@ alias autotester="bundle exec autotest"
 
 # gem management
 alias remove_all_gems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
+alias gemset="rvm gemset use $1"
 
 # migrations
 alias dbmigrate="brake db:migrate"
@@ -45,3 +47,8 @@ PS1="\[\033[31m\]\$(~/.rvm/bin/rvm-prompt)\[\033[00m\] $PS1"
 # rvm
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 source ~/.rvm/scripts/rvm
+
+if [ -e ~/.local_aliases ]
+then
+  . ~/.local_aliases
+fi
