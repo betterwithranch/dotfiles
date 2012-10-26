@@ -32,6 +32,7 @@ set cindent
 set autoindent
 set smarttab
 set expandtab
+set ruler
 
 set showmatch
 set mat=5
