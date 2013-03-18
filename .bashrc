@@ -6,6 +6,10 @@ alias ll="ls -al"
 alias brake="bundle exec rake"
 alias ss=". ~/.bashrc"
 
+# always include line numbers for grep
+alias grep="grep -n"
+alias gri="grep -R -i"
+
 # git
 alias gs="git status"
 alias gpom="git push origin master"
@@ -19,9 +23,12 @@ alias j="brake jasmine"
 alias jc="brake jasmine:ci"
 alias cs="brake spec cucumber"
 alias csj="s && c && jc"
-alias spec="bundle exec rspec"
+alias spec="clear && bundle exec rspec"
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
 alias autotester="bundle exec autotest"
+
+alias testcalc="VERBOSE_RISK_CALCS=true brake spec:risk_calcs"
+alias tci="brake teamcity:ci"
 
 # gem management
 alias remove_all_gems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
@@ -31,11 +38,13 @@ alias gemset="rvm gemset use $1"
 alias dbmigrate="brake db:migrate"
 alias migrate="dbmigrate"
 alias dbm="dbmigrate"
+alias dbs="brake db:seed"
 alias dbmr="brake db:migrate:redo"
 alias dbrollback="brake db:rollback"
 alias dbr="dbrollback"
 alias preptest="brake db:test:prepare"
 alias testprep="brake db:test:prepare"
+alias tp="brake db:test:prepare"
 alias routes="brake routes"
 
 # bash customizations
@@ -51,4 +60,9 @@ source ~/.rvm/scripts/rvm
 if [ -e ~/.local_aliases ]
 then
   . ~/.local_aliases
+fi
+
+if [ -e ~/.aws ]
+then
+  . ~/.aws
 fi
