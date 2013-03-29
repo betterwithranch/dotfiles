@@ -48,8 +48,16 @@ PS1="\[\033[31m\]\$(~/.rvm/bin/rvm-prompt)\[\033[00m\] $PS1"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 source ~/.rvm/scripts/rvm
 
+GIT_VER=`git --version | cut -f3 -d' '`
+if [ -f /usr/local/Cellar/git/$GIT_VER/etc/bash_completion.d/git-completion.bash ]; then
+  source /usr/local/Cellar/git/$GIT_VER/etc/bash_completion.d/git-completion.bash 
+fi
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 if [ -e ~/.local_aliases ]
 then
   . ~/.local_aliases
 fi
+
+VIM=~/.vimrc
+set -o vi

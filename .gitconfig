@@ -17,3 +17,4 @@
 [alias]
   s = status
   co = checkout
+  cam = commit -am
