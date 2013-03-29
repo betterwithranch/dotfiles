@@ -1,3 +1,7 @@
 .DS_Store
 *.swp
+<<<<<<< HEAD
 .vim/.netrwhist
+=======
+.gitconfig.local
+>>>>>>> add core settings, aliases to git and include user settings from another file
