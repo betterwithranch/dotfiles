@@ -5,6 +5,7 @@ export AUTOFEATURE=true
 alias ll="ls -al"
 alias brake="bundle exec rake"
 alias ss=". ~/.bashrc"
+alias tmux="TERM=screen-256color-bce tmux"
 
 # git
 alias gs="git status"
