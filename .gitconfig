@@ -1,8 +1,8 @@
-[user]
-	name = Craig Israel
-	email = craig_israel@onlifehealth.com
+[include]
+  path = .gitconfig.local
 [color]
 	ui = true
+  diff = true
 [mergetool "diffmerge"]
 	cmd = diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
 	trustExitCode = false

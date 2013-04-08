@@ -13,6 +13,7 @@ let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
+let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
 
 map <silent> <m-p> :cp <cr>
 map <silent> <m-n> :cn <cr>
@@ -20,6 +21,7 @@ map <silent> <m-n> :cn <cr>
 let g:rails_default_file='config/database.yml'
 
 colo vividchalk
+execute pathogen#infect()
 syntax enable
 
 set nu

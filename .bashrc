@@ -5,6 +5,7 @@ export AUTOFEATURE=true
 alias ll="ls -al"
 alias brake="bundle exec rake"
 alias ss=". ~/.bashrc"
+alias tmux="TERM=screen-256color-bce tmux"
 
 # always include line numbers for grep
 alias grep="grep -n"
@@ -20,7 +21,7 @@ alias wip="bundle exec cucumber --profile wip"
 alias c="bundle exec cucumber --tags ~@rachel-wip --tags ~@wip --tags ~@travis-wip --tags ~@kbeckman-wip"
 alias s="bundle exec rspec spec"
 alias j="brake jasmine"
-alias jc="brake jasmine:ci"
+alias jc="RAILS_ENV=test brake jasmine:ci"
 alias cs="brake spec cucumber"
 alias csj="s && c && jc"
 alias spec="clear && bundle exec rspec"
@@ -57,6 +58,12 @@ PS1="\[\033[31m\]\$(~/.rvm/bin/rvm-prompt)\[\033[00m\] $PS1"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 source ~/.rvm/scripts/rvm
 
+GIT_VER=`git --version | cut -f3 -d' '`
+if [ -f /usr/local/Cellar/git/$GIT_VER/etc/bash_completion.d/git-completion.bash ]; then
+  source /usr/local/Cellar/git/$GIT_VER/etc/bash_completion.d/git-completion.bash 
+fi
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 if [ -e ~/.local_aliases ]
 then
   . ~/.local_aliases
@@ -66,3 +73,5 @@ if [ -e ~/.aws ]
 then
   . ~/.aws
 fi
+VIM=~/.vimrc
+set -o vi

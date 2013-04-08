@@ -8,6 +8,3 @@ if [ -f /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.
   source /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash 
 fi
 
-VIM=~/.vimrc
-set -o vi
-
