@@ -6,6 +6,8 @@ alias ll="ls -al"
 alias brake="bundle exec rake"
 alias ss=". ~/.bashrc"
 alias tmux="TERM=screen-256color-bce tmux"
+alias start_liveon="~/dev/tmux_liveon.sh"
+alias stop_liveon="~/dev/tmux_shutdown.sh && tmux kill-session"
 
 # always include line numbers for grep
 alias grep="grep -n"
@@ -24,7 +26,7 @@ alias j="brake jasmine"
 alias jc="RAILS_ENV=test brake jasmine:ci"
 alias cs="brake spec cucumber"
 alias csj="s && c && jc"
-alias spec="clear && bundle exec rspec"
+alias spec="bundle exec rspec"
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
 alias autotester="bundle exec autotest"
 

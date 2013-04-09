@@ -5,6 +5,12 @@ filetype indent on
 filetype plugin on
 set nocompatible
 
+let g:pathogen_disabled = []
+"call add(g:pathogen_disabled, 'vim-spec')
+
+execute pathogen#infect()
+execute pathogen#helptags()
+
 set viminfo^=!
 runtime! macros/matchit.vim
 
@@ -18,10 +24,10 @@ let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchain
 map <silent> <m-p> :cp <cr>
 map <silent> <m-n> :cn <cr>
 
+
 let g:rails_default_file='config/database.yml'
 
 colo vividchalk
-execute pathogen#infect()
 syntax enable
 
 set nu
@@ -59,3 +65,19 @@ set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
+
+" put useful info in status bar
+set laststatus=2
+set statusline=%F%m%r%h%w\ [%l,%c]\ [%L,%p%%]
+
+" set up some custom colors
+highlight StatusLineNC ctermbg=238 ctermfg=0
+highlight StatusLine   ctermbg=240 ctermfg=12
+
+" change status bar based on current mode
+if version >= 700
+  au InsertEnter * hi StatusLine ctermfg=235 ctermbg=2
+  au InsertLeave * hi StatusLine ctermbg=240 ctermfg=12
+endif
+
+map <Leader>S :call RunCurrentSpecFile()<CR>
