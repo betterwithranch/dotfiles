@@ -87,16 +87,21 @@ if version >= 700
   au InsertLeave * hi StatusLine ctermbg=240 ctermfg=12
 endif
 
-map <Leader>S :call RunCurrentSpecFile()<CR>
 
 if exists(":Tabularize")
   nmap <Leader>a= :Tabularize /=<CR>
   vmap <Leader>a= :Tabularize /=<CR>
   nmap <Leader>a: :Tabularize /:\zs<CR>
   vmap <Leader>a: :Tabularize /:\zs<CR>
+  nmap <Leader>a> :Tabularize /=><CR>
 endif
 
+nmap <Leader>b :CtrlPBuffer<CR>
+nmap <Leader>v :so ~/.vimrc<CR>
+
 function! RunAllSpecs()
-  execute '!rspec'
+  execute '!echo "Running full rspec suite" && rspec && fg'
 endfunction
+
 map <Leader>r :call RunAllSpecs()<CR>
+map <Leader>S :call RunCurrentSpecFile()<CR>
