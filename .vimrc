@@ -1,4 +1,5 @@
 ﻿
+set shell=/bin/bash\ -i
 set vb
 filetype on
 filetype indent on
@@ -20,6 +21,10 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+let g:rspec_command = "ls"
+
+"Ctrl-P options
+let g:ctrlp_reuse_window = 'netrw'
 
 map <silent> <m-p> :cp <cr>
 map <silent> <m-n> :cn <cr>
@@ -46,6 +51,8 @@ set showmatch
 set mat=5
 set novisualbell
 set noerrorbells
+set cursorline
+set splitright  "open vertical splits on the right side
 
 "ruby
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
@@ -81,3 +88,15 @@ if version >= 700
 endif
 
 map <Leader>S :call RunCurrentSpecFile()<CR>
+
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
+function! RunAllSpecs()
+  execute '!rspec'
+endfunction
+map <Leader>r :call RunAllSpecs()<CR>

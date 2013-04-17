@@ -18,8 +18,9 @@ alias gs="git status"
 alias gpom="git push origin master"
 alias pushorigin="hack && cs && ship"
 
-# testing
+# ruby/rails aliases
 alias wip="bundle exec cucumber --profile wip"
+alias bi="bundle install"
 alias c="bundle exec cucumber --tags ~@rachel-wip --tags ~@wip --tags ~@travis-wip --tags ~@kbeckman-wip"
 alias s="bundle exec rspec spec"
 alias j="brake jasmine"
@@ -27,6 +28,7 @@ alias jc="RAILS_ENV=test brake jasmine:ci"
 alias cs="brake spec cucumber"
 alias csj="s && c && jc"
 alias spec="bundle exec rspec"
+alias rspec="bundle exec rspec"
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
 alias autotester="bundle exec autotest"
 
