@@ -1,1 +1,1 @@
-nmap <Leader>t :CtrlP<CR>
+noremap <c-p> Obinding.pry<Esc>:w<CR>
