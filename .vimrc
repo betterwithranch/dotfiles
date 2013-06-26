@@ -22,7 +22,6 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
-let g:rspec_command = "ls"
 
 "Ctrl-P options
 let g:ctrlp_reuse_window = 'netrw'
@@ -104,5 +103,9 @@ function! RunAllSpecs()
   execute '!echo "Running full rspec suite" && rspec && fg'
 endfunction
 
-map <Leader>r :call RunAllSpecs()<CR>
+nmap <Leader>t :CtrlP<CR>
 map <Leader>S :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+nmap <Leader>l :call RunLastSpec()<CR>
+
+
