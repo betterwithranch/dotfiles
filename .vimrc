@@ -1,6 +1,7 @@
 ﻿
 set shell=/bin/bash\ -i
 set vb
+set clipboard=unnamed
 filetype on
 filetype indent on
 filetype plugin on
