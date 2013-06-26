@@ -8,3 +8,5 @@ if [ -f /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.
   source /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash 
 fi
 
+export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
