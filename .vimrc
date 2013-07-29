@@ -106,6 +106,7 @@ endfunction
 nmap <Leader>t :CtrlP<CR>
 map <Leader>S :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>r :call RunAllSpecs()<CR>
 nmap <Leader>l :call RunLastSpec()<CR>
 
-
+command Qav q|AV
