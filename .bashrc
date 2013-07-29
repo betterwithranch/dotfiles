@@ -77,5 +77,6 @@ if [ -e ~/.aws ]
 then
   . ~/.aws
 fi
+export EDITOR=vim
 VIM=~/.vimrc
 set -o vi
