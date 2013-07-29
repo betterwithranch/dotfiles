@@ -18,7 +18,5 @@
   s = status
   co = checkout
   cam = commit -am
-
-[user]
-	name = Craig Israel
-	email = craig@theisraels.net
+[push]
+	default = simple
