@@ -26,6 +26,7 @@ let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchain
 "Ctrl-P options
 let g:ctrlp_reuse_window = 'netrw'
 
+
 map <silent> <m-p> :cp <cr>
 map <silent> <m-n> :cn <cr>
 
@@ -109,4 +110,5 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>r :call RunAllSpecs()<CR>
 nmap <Leader>l :call RunLastSpec()<CR>
 
-command Qav q|AV
+command! Qav q|AV
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
