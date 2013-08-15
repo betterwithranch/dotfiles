@@ -112,3 +112,4 @@ nmap <Leader>l :call RunLastSpec()<CR>
 
 command! Qav q|AV
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+nmap <Leader>vt <Plug>SetTmuxVars
