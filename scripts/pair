@@ -1,0 +1,71 @@
+#! /usr/bin/env ruby
+
+command = ARGV[0] || "status"
+
+require 'aws'
+require 'yaml'
+
+config = YAML.load_file(File.dirname(File.expand_path(__FILE__)) + "/pair.yml")["aws"]
+
+AWS.config(:access_key_id => config["access_key_id"], :secret_access_key => config["secret_access_key"])
+ec2 = AWS::EC2.new
+instance = ec2.instances[config["instance_id"]]
+
+$stdout.sync = true
+
+class InstanceController
+  attr_reader :instance
+  def initialize(instance)
+    @instance = instance
+  end
+
+  def start
+    puts "waiting for instance to start"
+    instance.start
+    while instance.status == :pending
+      print "."
+      sleep 5 
+    end
+    puts
+    puts "Started instance #{instance.dns_name}"
+  end
+
+  def stop
+    puts "stopping instance" 
+    instance.stop
+    while instance.status != :stopped
+      print "."
+      sleep 5
+    end
+    puts 
+    puts "instance has stopped"
+  end
+
+  def pair
+    command = "ssh -i ~/.ssh/onlife.pem ec2-user@#{instance.dns_name} -R 19999:localhost:22 -N -f -v"
+    puts "Opening ssh tunnel"
+    puts command
+    system(command)
+  end
+end
+
+controller = InstanceController.new(instance)
+case command
+when "status"
+  puts "Current status: #{instance.status}"
+when "start"
+  if instance.status == :running
+    puts "Instance is already running.  Current status is #{instance.status}" 
+  else
+    controller.start
+  end
+when "stop"
+  if instance.status != :running
+    puts "Instance is not running.  Current status is #{instance.status}" 
+  else
+    controller.stop
+  end
+when "pair"
+  controller.pair
+end
+
