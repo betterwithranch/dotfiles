@@ -104,6 +104,12 @@ function! RunAllSpecs()
   execute '!echo "Running full rspec suite" && rspec && fg'
 endfunction
 
+" Adds function for formatting the current .json file
+" Usage: :call FormatJSON()
+function! FormatJSON() 
+  :%!python -m json.tool 
+endfunction
+  
 nmap <Leader>t :CtrlP<CR>
 map <Leader>S :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
