@@ -31,6 +31,7 @@ alias spec="bundle exec rspec"
 alias rspec="bundle exec rspec"
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
 alias autotester="bundle exec autotest"
+alias boom="bundle install && bundle exec rake db:migrate db:test:prepare"
 
 alias testcalc="VERBOSE_RISK_CALCS=true brake spec:risk_calcs"
 alias tci="brake teamcity:ci"
@@ -52,6 +53,8 @@ alias testprep="brake db:test:prepare"
 alias tp="brake db:test:prepare"
 alias routes="brake routes"
 
+# process aliases
+alias running="ps aux | grep "
 # bash customizations
 export CLICOLOR=1;
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
