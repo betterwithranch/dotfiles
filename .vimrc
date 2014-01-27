@@ -1,4 +1,6 @@
 ﻿
+" make sure that shell uses interactive paths or external commands may not be
+" found
 set shell=/bin/bash\ -i
 set vb
 set clipboard=unnamed
