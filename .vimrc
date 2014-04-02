@@ -38,7 +38,7 @@ let g:rails_default_file='config/database.yml'
 colo vividchalk
 syntax enable
 
-set nu
+set relativenumber
 set nowrap
 
 set ts=2
@@ -91,16 +91,17 @@ if version >= 700
 endif
 
 
-if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-  nmap <Leader>a> :Tabularize /=><CR>
-endif
+"if exists(":Tabularize")
+  map <Leader>= :Tabularize /=<CR>
+  map <Leader>: :Tabularize /:<CR>
+  map <Leader>h :Tabularize /=><CR>
+"endif
 
 nmap <Leader>b :CtrlPBuffer<CR>
-nmap <Leader>v :so ~/.vimrc<CR>
+nmap <Leader>v :source ~/.vimrc<CR>
+
+" Ruby comment a paragraph
+map <Leader>c [m0<c-v>%I#
 
 function! RunAllSpecs()
   execute '!echo "Running full rspec suite" && rspec && fg'
@@ -121,3 +122,17 @@ nmap <Leader>l :call RunLastSpec()<CR>
 command! Qav q|AV
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 nmap <Leader>vt <Plug>SetTmuxVars
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
+
+" Uses git to get list of files for ctrl-p.  Much faster.
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_use_caching = 0
