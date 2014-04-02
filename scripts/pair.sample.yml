@@ -2,4 +2,4 @@ aws:
   access_key_id:     <access_key_id>
   secret_access_key: <secret_access_key>
   instance_id:       <instance_id>
-
+  tunnel_port:       19999

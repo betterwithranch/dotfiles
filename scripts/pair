@@ -5,18 +5,24 @@ command = ARGV[0] || "status"
 require 'aws'
 require 'yaml'
 
-config = YAML.load_file(File.dirname(File.expand_path(__FILE__)) + "/pair.yml")["aws"]
+config = YAML.load_file(File.dirname(File.expand_path(__FILE__)) + "/pair.yml")
+aws_config = config["aws"]
 
-AWS.config(:access_key_id => config["access_key_id"], :secret_access_key => config["secret_access_key"])
+AWS.config(:access_key_id => aws_config["access_key_id"], :secret_access_key => aws_config["secret_access_key"])
 ec2 = AWS::EC2.new
-instance = ec2.instances[config["instance_id"]]
+instance = ec2.instances[aws_config["instance_id"]]
 
 $stdout.sync = true
 
 class InstanceController
   attr_reader :instance
-  def initialize(instance)
+  def initialize(instance, config)
     @instance = instance
+    @config   = config
+  end
+
+  def config
+    @config
   end
 
   def start
@@ -42,17 +48,32 @@ class InstanceController
   end
 
   def pair
-    command = "ssh -i ~/.ssh/onlife.pem ec2-user@#{instance.dns_name} -R 19999:localhost:22 -N -f -v"
+    start unless instance.status == :running
+    command = "ssh "
+    command = command + "-i #{config["identity_file"]} " if config["identity_file"]
+    command = command + "ec2-user@#{instance.dns_name} -R #{config["tunnel_port"]}:localhost:22 -N -f -v"
     puts "Opening ssh tunnel"
     puts command
     system(command)
+    puts "\n\nPair can connect with 'ssh tmux@#{instance.dns_name}'\n\n"
+  end
+
+  def ssh
+    system("ssh -i ~/.ssh/onlife.pem ec2-user@#{instance.dns_name} -v")
+
+  end
+
+  def close_pair
+    pid = %x{ps aux | grep '19999:localhost:22' | grep -v grep | tr -s ' ' | cut -d ' ' -f 2}.chomp
+    system("kill #{pid}")
   end
 end
 
-controller = InstanceController.new(instance)
+controller = InstanceController.new(instance, aws_config)
 case command
 when "status"
   puts "Current status: #{instance.status}"
+  puts "Instance DNS:   #{instance.dns_name}"
 when "start"
   if instance.status == :running
     puts "Instance is already running.  Current status is #{instance.status}" 
@@ -60,6 +81,7 @@ when "start"
     controller.start
   end
 when "stop"
+  require 'pry';binding.pry
   if instance.status != :running
     puts "Instance is not running.  Current status is #{instance.status}" 
   else
@@ -67,5 +89,18 @@ when "stop"
   end
 when "pair"
   controller.pair
+when "close_pair"
+  controller.close_pair
+when "ssh"
+  controller.ssh
+when 'attach'
+  `tmux -S /tmp/pair attach`
+else
+  pair = config["pairs"][command]
+  if pair
+    system("switch_pair #{pair["path"]}")
+  else
+    puts "Invalid command '#{command}'"
+  end
 end
 
