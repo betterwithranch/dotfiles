@@ -29,6 +29,9 @@ alias cs="brake spec cucumber"
 alias csj="s && c && jc"
 alias spec="bundle exec rspec"
 alias rspec="bundle exec rspec"
+# I will no longer be thwarted by this typo
+alias jkrspec="bundle exec rspec"
+
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
 alias autotester="bundle exec autotest"
 alias boom="bundle install && bundle exec rake db:migrate db:test:prepare"
