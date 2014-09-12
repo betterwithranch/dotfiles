@@ -1,5 +1,9 @@
 #! /usr/bin/env ruby
 
+# Issues:
+# investigate pkill to kill reverse tunnel
+# use pbcopy to automatically put ssh command in buffer when pair is started
+# get subdomain to work instead of using instance ips
 command = ARGV[0] || "status"
 
 require 'aws'
@@ -65,7 +69,7 @@ class InstanceController
 
   def close_pair
     pid = %x{ps aux | grep '19999:localhost:22' | grep -v grep | tr -s ' ' | cut -d ' ' -f 2}.chomp
-    system("kill #{pid}")
+    system("kill #{pid}") unless pid.empty?
   end
 end
 
@@ -81,7 +85,6 @@ when "start"
     controller.start
   end
 when "stop"
-  require 'pry';binding.pry
   if instance.status != :running
     puts "Instance is not running.  Current status is #{instance.status}" 
   else
