@@ -21,6 +21,7 @@ alias pushorigin="hack && cs && ship"
 # ruby/rails aliases
 alias wip="bundle exec cucumber --profile wip"
 alias bi="bundle install"
+alias rc="bundle exec rails c"
 alias c="bundle exec cucumber --tags ~@rachel-wip --tags ~@wip --tags ~@travis-wip --tags ~@kbeckman-wip"
 alias s="bundle exec rspec spec"
 alias j="brake jasmine"
@@ -31,6 +32,7 @@ alias spec="bundle exec rspec"
 alias rspec="bundle exec rspec"
 # I will no longer be thwarted by this typo
 alias jkrspec="bundle exec rspec"
+alias tag="ctags -R --exclude=.bundle"
 
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
 alias autotester="bundle exec autotest"
@@ -63,6 +65,8 @@ export CLICOLOR=1;
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export PS1=" \[\033[38m\]\u\[\033[01;34m\] \w \[\033[31m\]\`ruby -e \"print (%x{git branch 2> /dev/null}.split(%r{\n}).grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\`\[\033[37m\]$\[\033[00m\] "
 
+# Virtual box manager
+alias vbox="sudo /Library/StartupItems/VirtualBox/VirtualBox"
 # rvm
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 #source ~/.rvm/scripts/rvm
