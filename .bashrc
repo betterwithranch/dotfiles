@@ -17,6 +17,7 @@ alias gri="grep -R -i"
 alias gs="git status"
 alias gpom="git push origin master"
 alias pushorigin="hack && cs && ship"
+alias bfg="java -jar /usr/bin/bfg-1.12.0.jar"
 
 # ruby/rails aliases
 alias wip="bundle exec cucumber --profile wip"
@@ -27,11 +28,14 @@ alias s="bundle exec rspec spec"
 alias j="brake jasmine"
 alias jc="RAILS_ENV=test brake jasmine:ci"
 alias cs="brake spec cucumber"
+alias resetTest="RAILS_ENV=test brake db:reset"
 alias csj="s && c && jc"
 alias spec="bundle exec rspec"
 alias rspec="bundle exec rspec"
+alias jsspec="RAILS_ENV=test bundle exec rake spec:javascript"
 # I will no longer be thwarted by this typo
 alias jkrspec="bundle exec rspec"
+alias jrspec="bundle exec rspec"
 alias tag="ctags -R --exclude=.bundle"
 
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
@@ -46,17 +50,18 @@ alias remove_all_gems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
 #alias gemset="rvm gemset use $1"
 
 # migrations
-alias dbmigrate="brake db:migrate"
-alias migrate="dbmigrate"
-alias dbm="dbmigrate"
+alias dbm="bin/rake db:migrate"
+alias dbmt="bin/rake db:migrate db:test:prepare"
 alias dbs="brake db:seed"
 alias dbmr="brake db:migrate:redo"
 alias dbrollback="brake db:rollback"
 alias dbr="dbrollback"
-alias preptest="brake db:test:prepare"
-alias testprep="brake db:test:prepare"
+alias dbt="RAILS_ENV=test dbm"
 alias tp="brake db:test:prepare"
 alias routes="brake routes"
+
+# postgres help
+alias usepg93="export PATH=/Applications/Postgres93.app/Contents/MacOS/bin/:$PATH"
 
 # process aliases
 alias running="ps aux | grep "
@@ -90,6 +95,11 @@ fi
 export EDITOR=vim
 VIM=~/.vimrc
 set -o vi
+
+usepg() {
+  echo $PATH;
+}
+
 # Add the following to your ~/.bashrc or ~/.zshrc
 #
 # Alternatively, copy/symlink this file and source in your shell.  See `hitch --setup-path`.
