@@ -4,8 +4,10 @@
 	ui = true
   diff = true
 [mergetool "diffmerge"]
-	cmd = diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
+  cmd = diffmerge --merge --result=\"`pwd`/$MERGED\" \"`pwd`/$LOCAL\" \"`pwd`/$BASE\" \"`pwd`/$REMOTE\"
 	trustExitCode = false
+[mergetool]
+  keepBackup = false
 [diff]
 	tool = diffmerge
 [merge]
@@ -14,6 +16,7 @@
   autocrlf = false
   safecrlf = false
   pager = less -q
+	excludesfile = /Users/craigisrael/.gitignore
 [alias]
   s = status
   co = checkout
