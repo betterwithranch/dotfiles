@@ -62,6 +62,11 @@ autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType slim setlocal list
+autocmd FileType slimbars setlocal list
+autocmd BufNewFile,BufRead *.slimbars set filetype=slim
+autocmd BufNewFile,BufRead *.drip set filetype=ruby
+
 "improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
@@ -94,7 +99,8 @@ endif
 "if exists(":Tabularize")
   map <Leader>= :Tabularize /=<CR>
   map <Leader>: :Tabularize /:<CR>
-  map <Leader>h :Tabularize /=><CR>
+  map <Leader>ho :Tabularize /=><CR>
+  map <Leader>hn :Tabularize/\w:\zs/l0l1<CR>
 "endif
 
 nmap <Leader>b :CtrlPBuffer<CR>
@@ -134,5 +140,18 @@ endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
 
 " Uses git to get list of files for ctrl-p.  Much faster.
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'ag %s -l --nocolor -g ""']
 let g:ctrlp_use_caching = 0
+
+" Save current file as sudo
+cmap w!! %!sudo tee > /dev/null %
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+"  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
