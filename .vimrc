@@ -24,6 +24,7 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+let g:jsx_ext_required = 0
 
 "Ctrl-P options
 let g:ctrlp_reuse_window = 'netrw'

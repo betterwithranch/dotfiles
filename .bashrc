@@ -88,10 +88,10 @@ then
   . ~/.local_aliases
 fi
 
-if [ -e ~/.aws ]
-then
-  . ~/.aws
-fi
+#if [ -e ~/.aws ]
+#then
+#  . ~/.aws
+#fi
 export EDITOR=vim
 VIM=~/.vimrc
 set -o vi
