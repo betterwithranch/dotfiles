@@ -1,0 +1,12 @@
+if [ $# -lt 2 ]
+then
+  echo "Usage: deploy [remote] [app]"
+  exit
+fi
+
+remote="$1"
+app="$2"
+
+git push $remote heroku-$remote/master
+heroku run bundle exec rake db:migrate -a $app
+heroku restart -a $app

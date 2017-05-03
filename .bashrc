@@ -1,13 +1,12 @@
 export dev=~/dev
 export PATH="/usr/local/bin:/usr/local/sbin:$dev/dotfiles/scripts:$PATH"
 export AUTOFEATURE=true
+export GOPATH=~/dev
 
 alias ll="ls -al"
 alias brake="bundle exec rake"
 alias ss=". ~/.bashrc"
 alias tmux="TERM=screen-256color-bce tmux"
-alias start_liveon="~/dev/tmux_liveon.sh"
-alias stop_liveon="~/dev/tmux_shutdown.sh && tmux kill-session"
 
 # always include line numbers for grep
 alias grep="grep -n"
@@ -15,6 +14,7 @@ alias gri="grep -R -i"
 
 # git
 alias gs="git status"
+alias gd="git diff"
 alias gpom="git push origin master"
 alias pushorigin="hack && cs && ship"
 alias bfg="java -jar /usr/bin/bfg-1.12.0.jar"
@@ -33,10 +33,20 @@ alias csj="s && c && jc"
 alias spec="bundle exec rspec"
 alias rspec="bundle exec rspec"
 alias jsspec="RAILS_ENV=test bundle exec rake spec:javascript"
-# I will no longer be thwarted by this typo
+alias spect="spec spec && bundle exec teaspoon"
+
+# docker aliases
+alias dcu="docker-compose up -d"
+alias ds="docker-compose stop"
+alias dps="docker ps"
+
+# I will no longer be thwarted by these typos
 alias jkrspec="bundle exec rspec"
 alias jrspec="bundle exec rspec"
+
 alias tag="ctags -R --exclude=.bundle"
+
+
 
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
 alias autotester="bundle exec autotest"
@@ -57,6 +67,7 @@ alias dbmr="brake db:migrate:redo"
 alias dbrollback="brake db:rollback"
 alias dbr="dbrollback"
 alias dbt="RAILS_ENV=test dbm"
+alias dbtr="RAILS_ENV=test dbr"
 alias tp="brake db:test:prepare"
 alias routes="brake routes"
 
@@ -122,5 +133,10 @@ hitch() {
 }
 alias unhitch='hitch -u'
 
+flushdns() {
+  sudo dscacheutil -flushcache
+  sudo killall -HUP mDNSResponder
+}
 # Uncomment to persist pair info between terminal instances
 # hitch
+source ~/dev/dotfiles/tmuxinator.bash

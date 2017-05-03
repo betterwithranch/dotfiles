@@ -10,7 +10,6 @@ if [ -f /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.
   source /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash 
 fi
 
-export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 export NVM_DIR="$HOME/.nvm"

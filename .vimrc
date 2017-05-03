@@ -29,6 +29,11 @@ let g:jsx_ext_required = 0
 "Ctrl-P options
 let g:ctrlp_reuse_window = 'netrw'
 
+"UltiSnips
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 map <silent> <m-p> :cp <cr>
 map <silent> <m-n> :cn <cr>
