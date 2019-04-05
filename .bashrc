@@ -35,6 +35,10 @@ alias rspec="bundle exec rspec"
 alias jsspec="RAILS_ENV=test bundle exec rake spec:javascript"
 alias spect="spec spec && bundle exec teaspoon"
 
+# yarn aliases
+alias jest="yarn jest"
+alias jest-debug="node --inspect-brk node_modules/.bin/jest"
+
 # docker aliases
 alias dcu="docker-compose up -d"
 alias ds="docker-compose stop"
@@ -88,9 +92,8 @@ alias vbox="sudo /Library/StartupItems/VirtualBox/VirtualBox"
 #source ~/.rvm/scripts/rvm
 #PS1="\[\033[31m\]\$(~/.rvm/bin/rvm-prompt)\[\033[00m\] $PS1"
 
-GIT_VER=`git --version | cut -f3 -d' '`
-if [ -f /usr/local/Cellar/git/$GIT_VER/etc/bash_completion.d/git-completion.bash ]; then
-  source /usr/local/Cellar/git/$GIT_VER/etc/bash_completion.d/git-completion.bash 
+if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+  . /usr/local/share/bash-completion/bash_completion
 fi
 
 #PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -109,6 +112,11 @@ set -o vi
 
 usepg() {
   echo $PATH;
+}
+
+dcleanup(){
+    docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+    docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
 # Add the following to your ~/.bashrc or ~/.zshrc
@@ -140,3 +148,4 @@ flushdns() {
 # Uncomment to persist pair info between terminal instances
 # hitch
 source ~/dev/dotfiles/tmuxinator.bash
+source ~/dev/dotfiles/scripts/k8s/execpod

@@ -3,5 +3,7 @@
 *.swo
 tags
 .vim/.netrwhist
+.vim/bundle
+.vim/plugged
 .gitconfig.local
 scripts/pair.yml

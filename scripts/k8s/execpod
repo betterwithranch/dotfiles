@@ -1,0 +1,15 @@
+#! /bin/bash
+
+function execPod(){
+  NAMESPACE=$1
+  shift
+  LABEL=$1
+  shift
+
+  POD_NAME=`kubectl -n $NAMESPACE get pods -l $LABEL --no-headers | \
+    head -n 1 | \
+    cut -d' ' -f1`
+
+  echo Opening connection to $POD_NAME
+  kubectl -n $NAMESPACE exec -it $POD_NAME "$@"
+}

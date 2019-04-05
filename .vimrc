@@ -9,11 +9,29 @@ filetype indent on
 filetype plugin on
 set nocompatible
 
-let g:pathogen_disabled = []
-"call add(g:pathogen_disabled, 'vim-spec')
+" vim-plug
+call plug#begin('~/.vim/plugged')
 
-execute pathogen#infect()
-execute pathogen#helptags()
+Plug 'mileszs/ack.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-surround'
+Plug 'godlygeek/tabular'
+Plug 'jgdavey/tslime.vim'
+Plug 'SirVer/ultisnips'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'groenewege/vim-less'
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-rails'
+Plug 'thoughtbot/vim-rspec'
+Plug 'vim-ruby/vim-ruby'
+Plug 'honza/vim-snippets'
+
+call plug#end()
 
 set viminfo^=!
 runtime! macros/matchit.vim
@@ -44,7 +62,7 @@ let g:rails_default_file='config/database.yml'
 colo vividchalk
 syntax enable
 
-set relativenumber
+set relativenumber number
 set nowrap
 
 set ts=2
