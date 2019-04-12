@@ -22,4 +22,7 @@
   co = checkout
   cam = commit -am
 [push]
-	default = simple
+	default = current
+[user]
+	email = craig@theisraels.net
+	name = Craig Israel
