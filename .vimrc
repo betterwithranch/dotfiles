@@ -30,6 +30,8 @@ Plug 'tpope/vim-rails'
 Plug 'thoughtbot/vim-rspec'
 Plug 'vim-ruby/vim-ruby'
 Plug 'honza/vim-snippets'
+Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 
@@ -58,6 +60,8 @@ map <silent> <m-n> :cn <cr>
 
 
 let g:rails_default_file='config/database.yml'
+
+let g:airline#extensions#ale#enabled = 1
 
 colo vividchalk
 syntax enable
