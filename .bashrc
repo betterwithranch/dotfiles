@@ -34,6 +34,7 @@ alias spec="bundle exec rspec"
 alias rspec="bundle exec rspec"
 alias jsspec="RAILS_ENV=test bundle exec rake spec:javascript"
 alias spect="spec spec && bundle exec teaspoon"
+alias rubo="git diff --name-only | xargs rubocop"
 
 # yarn aliases
 alias jest="yarn jest"
