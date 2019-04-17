@@ -85,6 +85,23 @@ set noerrorbells
 set cursorline
 set splitright  "open vertical splits on the right side
 
+" autoread and autowrite
+augroup save
+  au!
+  au FocusLost * wall
+augroup END
+set nohidden
+set nobackup
+set noswapfile
+set nowritebackup
+set autoread
+set autowrite
+set autowriteall
+
+" persistent-undo
+set undodir=~/.vim/undo
+set undofile
+
 "ruby
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -154,7 +171,7 @@ map <Leader>r :call RunAllSpecs()<CR>
 nmap <Leader>l :call RunLastSpec()<CR>
 
 command! Qav q|AV
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+let g:rspec_command = 'w | call Send_to_Tmux("rspec {spec}\n")'
 nmap <Leader>vt <Plug>SetTmuxVars
 
 function! NumberToggle()
@@ -178,7 +195,7 @@ cmap w!! %!sudo tee > /dev/null %
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ackprg = 'ag --vimgrep'
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
 "  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
