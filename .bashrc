@@ -15,7 +15,6 @@ alias gri="grep -R -i"
 # git
 alias gs="git status"
 alias gd="git diff"
-alias gpom="git push origin master"
 alias pushorigin="hack && cs && ship"
 alias bfg="java -jar /usr/bin/bfg-1.12.0.jar"
 
@@ -23,6 +22,7 @@ alias bfg="java -jar /usr/bin/bfg-1.12.0.jar"
 alias wip="bundle exec cucumber --profile wip"
 alias bi="bundle install"
 alias rc="bundle exec rails c"
+alias rdbc="bundle exec rails dbconsole"
 alias c="bundle exec cucumber --tags ~@rachel-wip --tags ~@wip --tags ~@travis-wip --tags ~@kbeckman-wip"
 alias s="bundle exec rspec spec"
 alias j="brake jasmine"
@@ -40,6 +40,8 @@ alias rubo="git diff --name-only | xargs rubocop"
 alias jest="yarn jest"
 alias jest-debug="node --inspect-brk node_modules/.bin/jest"
 
+# nvm aliases
+export NODE_VERSIONS=~/.nvm/versions/node
 # docker aliases
 alias dcu="docker-compose up -d"
 alias ds="docker-compose stop"
