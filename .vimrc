@@ -61,7 +61,13 @@ map <silent> <m-n> :cn <cr>
 
 let g:rails_default_file='config/database.yml'
 
+" ale configuration
 let g:airline#extensions#ale#enabled = 1
+let g:ale_lint_on_text_changed = 'never'
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+let g:ale_fix_on_save = 1
 
 colo vividchalk
 syntax enable
@@ -131,7 +137,7 @@ endif
   map <Leader>hn :Tabularize/\w:\zs/l0l1<CR>
 "endif
 
-nmap <Leader>b :CtrlPBuffer<CR>
+nmap <Leader>b :CtrlPMRU<CR>
 nmap <Leader>v :source ~/.vimrc<CR>
 
 " Ruby comment a paragraph
@@ -154,7 +160,9 @@ map <Leader>r :call RunAllSpecs()<CR>
 nmap <Leader>l :call RunLastSpec()<CR>
 
 command! Qav q|AV
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+command! -nargs=+ Aapp Ack <args> --ignore api_interactions
+"command Aapp -nargs=+ :Ack --ignore api_interactions <args>
+let g:rspec_command = 'w | call Send_to_Tmux("rspec {spec}\n")'
 nmap <Leader>vt <Plug>SetTmuxVars
 
 function! NumberToggle()
@@ -169,7 +177,7 @@ nnoremap <C-n> :call NumberToggle()<cr>
 
 " Uses git to get list of files for ctrl-p.  Much faster.
 " let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'ag %s -l --nocolor -g ""']
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'ag %s -l --nocolor -g ""']
 let g:ctrlp_use_caching = 0
 
 " Save current file as sudo
@@ -178,10 +186,10 @@ cmap w!! %!sudo tee > /dev/null %
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag --nogroup --nocolor'
 
   cnoreabbrev Ag Ack
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-"  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
