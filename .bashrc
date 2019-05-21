@@ -64,11 +64,10 @@ alias tci="brake teamcity:ci"
 
 # gem management
 alias remove_all_gems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
-#alias gemset="rvm gemset use $1"
 
 # migrations
 alias dbm="bin/rake db:migrate"
-alias dbmt="bin/rake db:migrate db:test:prepare"
+alias dbtp="bin/rake db:migrate db:test:prepare"
 alias dbs="brake db:seed"
 alias dbmr="brake db:migrate:redo"
 alias dbrollback="brake db:rollback"
@@ -90,16 +89,11 @@ export PS1=" \[\033[38m\]\u\[\033[01;34m\] \w \[\033[31m\]\`ruby -e \"print (%x{
 
 # Virtual box manager
 alias vbox="sudo /Library/StartupItems/VirtualBox/VirtualBox"
-# rvm
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
-#source ~/.rvm/scripts/rvm
-#PS1="\[\033[31m\]\$(~/.rvm/bin/rvm-prompt)\[\033[00m\] $PS1"
 
 if [ -f /usr/local/share/bash-completion/bash_completion ]; then
   . /usr/local/share/bash-completion/bash_completion
 fi
 
-#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 if [ -e ~/.local_aliases ]
 then
   . ~/.local_aliases
