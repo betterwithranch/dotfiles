@@ -167,7 +167,7 @@ map <Leader>r :call RunAllSpecs()<CR>
 nmap <Leader>l :call RunLastSpec()<CR>
 
 command! Qav q|AV
-command! -nargs=+ Aapp Ack <args> --ignore api_interactions
+command! -nargs=+ Aapp Ack <args> --ignore-dir api_interactions
 "command Aapp -nargs=+ :Ack --ignore api_interactions <args>
 let g:rspec_command = 'w | call Send_to_Tmux("rspec {spec}\n")'
 nmap <Leader>vt <Plug>SetTmuxVars
