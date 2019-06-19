@@ -41,6 +41,7 @@ alias rubo="git diff --name-only | xargs rubocop"
 # yarn aliases
 alias jest="yarn jest"
 alias jest-debug="node --inspect-brk node_modules/.bin/jest"
+alias node-debug="node --inspect-brk"
 
 # nvm aliases
 export NODE_VERSIONS=~/.nvm/versions/node

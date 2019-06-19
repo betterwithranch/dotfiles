@@ -3,6 +3,8 @@ if [ -f ~/.bashrc ]; then
 fi
 
 export JAVA_HOME=$(/usr/libexec/java_home)
+export ANDROID_SDK="~/Library/Android/sdk"
+export PATH="${ANDROID_SDK}/emulator:${ANDROID_SDK}/platform-tools:${PATH}"
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
 
