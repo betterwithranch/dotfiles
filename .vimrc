@@ -32,6 +32,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'honza/vim-snippets'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'lmeijvogel/vim-yaml-helper'
 
 call plug#end()
 
@@ -68,6 +69,12 @@ let g:ale_lint_on_text_changed = 'never'
 " if you don't want linters to run on opening a file
 let g:ale_lint_on_enter = 0
 let g:ale_fix_on_save = 1
+highlight clear ALEWarning
+highlight clear ALEError
+let g:ale_sign_warning = "*"
+let g:ale_sign_error = "*"
+highlight ALEErrorSign ctermfg=red
+highlight ALEWarningSign ctermfg=yellow
 
 colo vividchalk
 syntax enable
