@@ -1,0 +1,16 @@
+#! /bin/bash
+
+# This will dump only the data from mysql for all tables except for
+# schema_versions.  This is helpful when the schema.rb or structure.sql
+# is out of sync.  Dump the data below, then run
+# bin/rake db:drop db:create db:structure:load to use the schema defined
+# in the repo. Finally, import the data back into the db with
+# mysql -h 127.0.0.1 -u ${DB_USER:-root} $DB_NAME < /tmp/$DB_NAME.dump
+
+mysqldump -h 127.0.0.1 \
+            -u ${DB_USER:-root} \
+            --no-create-info \
+            --complete-insert \
+            --ignore-table=$DB_NAME.schema_migrations \
+            -B $DB_NAME > /tmp/$DB_NAME.dump
+
