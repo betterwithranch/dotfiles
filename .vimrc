@@ -23,7 +23,7 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'amadeus/vim-jsx'
 Plug 'groenewege/vim-less'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-rails'
@@ -33,6 +33,17 @@ Plug 'honza/vim-snippets'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'lmeijvogel/vim-yaml-helper'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
@@ -201,3 +212,7 @@ if executable('ag')
  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'ag %s -l --nocolor -g ""']
 "  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+
+let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'

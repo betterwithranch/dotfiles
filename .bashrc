@@ -2,8 +2,7 @@ export dev=~/dev
 export PATH="/usr/local/bin:/usr/local/sbin:$dev/dotfiles/scripts:$PATH"
 export AUTOFEATURE=true
 export GOPATH=~/dev/go
-export GOROOT=/usr/local/go
-export PATH="$GOPATH/bin:$PATH"
+export PATH=$PATH:$GOPATH/bin
 
 alias ll="ls -al"
 alias brake="bundle exec rake"
