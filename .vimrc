@@ -22,6 +22,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-projectionist'
 Plug 'pangloss/vim-javascript'
 Plug 'amadeus/vim-jsx'
 Plug 'groenewege/vim-less'
@@ -43,7 +45,7 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 0
 
 call plug#end()
 
@@ -218,4 +220,6 @@ let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
 " <TAB>: completion for deoplete.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<C-R>=UltiSnips#ExpandSnippet()"
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<C-R>=UltiSnips#ExpandSnippet()"
+
+autocmd! CursorMoved *.yml YamlDisplayFullPath
