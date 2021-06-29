@@ -1,22 +1,23 @@
-[include]
-  path = ~/.gitconfig.local
 [color]
 	ui = true
   diff = true
 [mergetool "diffmerge"]
   cmd = diffmerge --merge --result=\"`pwd`/$MERGED\" \"`pwd`/$LOCAL\" \"`pwd`/$BASE\" \"`pwd`/$REMOTE\"
 	trustExitCode = false
+[mergetool "vimdiff"]
+  conflictstyle = diff3
 [mergetool]
   keepBackup = false
 [diff]
-	tool = diffmerge
+  #tool = diffmerge
+  tool = vimdiff
 [merge]
-	tool = diffmerge
+  #tool = diffmerge
+  tool = vimdiff
 [core]
   autocrlf = false
   safecrlf = false
   pager = less -q
-	excludesfile = /Users/craigisrael/.gitignore
 [alias]
   s = status
   co = checkout
@@ -26,3 +27,10 @@
 [user]
 	email = craig@theisraels.net
 	name = Craig Israel
+[pager]
+  branch = false
+# Add local overrides to one of the following files
+# For example, user.email
+[include]
+  path = ~/.gitconfig.local
+  path = ~/.gitconfig_local

@@ -1,5 +1,5 @@
 mkdir -p ~/backups
-for f in .asdfrc .bash_profile .bashrc .editrc .gemrc .gitconfig .gitignore .inputrc .irbrc .pryrc .rspec .tmux.conf .vim .vimrc
+for f in .asdfrc .bash_profile .bashrc .editrc .gemrc .gitconfig .inputrc .irbrc .pryrc .rspec .tmux.conf .vim .vimrc
 do
   if [[ -f "$f" ]]; then
     mv ~/$f ~/backups/$f
@@ -7,4 +7,6 @@ do
   ln -s ~/dev/dotfiles/$f ~/$f
 done
 
-
+# link gitignore to default position
+mkdir -p ~/.config/git
+ln -s ~/dev/dotfiles/.gitignore ~/.config/git/ignore
