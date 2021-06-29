@@ -36,6 +36,7 @@ Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'lmeijvogel/vim-yaml-helper'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'vim-test/vim-test'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -81,11 +82,19 @@ let g:ale_lint_on_text_changed = 'never'
 " You can disable this option too
 " if you don't want linters to run on opening a file
 let g:ale_lint_on_enter = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_save = 1
+let g:ale_linters = {
+\  'ruby': ['rubocop']
+\}
 let g:ale_fix_on_save = 1
 highlight clear ALEWarning
 highlight clear ALEError
-let g:ale_sign_warning = "*"
-let g:ale_sign_error = "*"
+let g:ale_sign_info = "⚠️"
+let g:ale_sign_warning = "⚠️"
+let g:ale_sign_style_warning = "⚠️"
+let g:ale_sign_error = "❗️"
+let g:ale_sign_style_error = "❗️"
 highlight ALEErrorSign ctermfg=red
 highlight ALEWarningSign ctermfg=yellow
 
@@ -223,3 +232,5 @@ let g:go_info_mode='gopls'
 "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<C-R>=UltiSnips#ExpandSnippet()"
 
 autocmd! CursorMoved *.yml YamlDisplayFullPath
+
+let test#strategy = "tslime"
