@@ -115,7 +115,7 @@ set ruler
 
 set showmatch
 set mat=5
-set novisualbell
+" set novisualbell
 set noerrorbells
 set cursorline
 set splitright  "open vertical splits on the right side
@@ -129,6 +129,9 @@ autocmd FileType slim setlocal list
 autocmd FileType slimbars setlocal list
 autocmd BufNewFile,BufRead *.slimbars set filetype=slim
 autocmd BufNewFile,BufRead *.drip set filetype=ruby
+
+let g:ruby_indent_assignment_style='variable'
+let g:ruby_indent_hanging_elements=0
 
 "improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
@@ -191,7 +194,7 @@ nmap <Leader>l :call RunLastSpec()<CR>
 command! Qav q|AV
 command! -nargs=+ Aapp Ack <args> --ignore-dir api_interactions
 "command Aapp -nargs=+ :Ack --ignore api_interactions <args>
-let g:rspec_command = 'w | call Send_to_Tmux("rspec {spec}\n")'
+let g:rspec_command = 'w | call Send_to_Tmux("bundle exec rspec {spec}\n")'
 nmap <Leader>vt <Plug>SetTmuxVars
 
 function! NumberToggle()
