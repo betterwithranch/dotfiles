@@ -148,3 +148,7 @@ flushdns() {
 # hitch
 source ~/dev/dotfiles/tmuxinator.bash
 source ~/dev/dotfiles/scripts/k8s/execpod
+
+# tabtab source for packages
+# uninstall by removing these lines
+[ -f ~/.config/tabtab/__tabtab.bash ] && . ~/.config/tabtab/__tabtab.bash || true
