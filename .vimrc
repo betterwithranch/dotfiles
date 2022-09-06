@@ -18,13 +18,14 @@ Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 Plug 'jgdavey/tslime.vim'
 Plug 'SirVer/ultisnips'
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-projectionist'
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 Plug 'amadeus/vim-jsx'
 Plug 'groenewege/vim-less'
 Plug 'plasticboy/vim-markdown'
@@ -37,15 +38,18 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'lmeijvogel/vim-yaml-helper'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'vim-test/vim-test'
+Plug 'eliba2/vim-node-inspect'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = ['coc-tsserver']
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 "let g:deoplete#enable_at_startup = 0
 
 call plug#end()
@@ -66,9 +70,9 @@ let g:ctrlp_reuse_window = 'netrw'
 
 "UltiSnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 map <silent> <m-p> :cp <cr>
 map <silent> <m-n> :cn <cr>
@@ -85,8 +89,13 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_save = 1
 let g:ale_linters = {
-\  'ruby': ['rubocop']
+\  'ruby': ['rubocop'],
+\  'typescript': ['eslint'],
 \}
+let g:ale_fixers = {
+\ 'javascript': ['prettier'],
+\ 'typescript': ['prettier'],
+\  }
 let g:ale_fix_on_save = 1
 highlight clear ALEWarning
 highlight clear ALEError
@@ -139,7 +148,8 @@ highlight Pmenu ctermbg=238 gui=bold
 
 augroup myfiletypes
     autocmd!
-    autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
+    autocmd FileType ruby,eruby set ai sw=2 sts=2 et
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
 
 set foldmethod=indent

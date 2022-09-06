@@ -9,4 +9,11 @@ done
 
 # link gitignore to default position
 mkdir -p ~/.config/git
-ln -s ~/dev/dotfiles/.gitignore ~/.config/git/ignore
+
+if [[ ! -f "$f" ]]; then
+  ln -s ~/dev/dotfiles/.gitignore ~/.config/git/ignore
+fi
+
+if [[ ! -f "$f" ]]; then
+  ln -s ~/dev/dotfiles/.zhsrc ~/.aliases
+fi
