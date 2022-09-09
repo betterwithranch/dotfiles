@@ -1,4 +1,6 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ -f /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 export PATH="$PATH:$(yarn global bin)"
 export EDITOR=vim
 alias mux=tmuxinator
@@ -12,14 +14,22 @@ installOhMyZsh() {
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
 
-if [ -f /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash ]; then
-  source /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash 
-fi
+# configure git completion in bash
+# if [ -f /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash ]; then
+#  source /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash 
+# fi
+
+# configure git completion in zsh
+#zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+#fpath=(~/.zsh $fpath)
+#autoload -Uz compinit && compinit
 
 . $(brew --prefix asdf)/asdf.sh
 
-export WORKON_HOME=~/.virtualenvs
-. $(asdf where python)/bin/virtualenvwrapper.sh
+if [ -f $(asdf where python)/bin/virtualenvwrapper.sh ]; then
+  export WORKON_HOME=~/.virtualenvs
+  . $(asdf where python)/bin/virtualenvwrapper.sh
+fi
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/craig.israel/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/craig.israel/google-cloud-sdk/path.zsh.inc'; fi
