@@ -36,7 +36,7 @@ Plug 'tpope/vim-rails'
 Plug 'thoughtbot/vim-rspec'
 Plug 'vim-ruby/vim-ruby'
 Plug 'honza/vim-snippets'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'lmeijvogel/vim-yaml-helper'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
