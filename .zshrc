@@ -24,10 +24,10 @@ GIT_VERSION=`git --version | cut -d' ' -f3-`
 #fpath=(~/.zsh $fpath)
 #autoload -Uz compinit && compinit
 
-. $(brew --prefix asdf)/asdf.sh
+. $(brew --prefix asdf)/libexec/asdf.sh
 
 if [ -f $(asdf where python)/bin/virtualenvwrapper.sh ]; then
-  export WORKON_HOME=~/.virtualenvs
+  export WORKON_HOME=~/dev/python
   . $(asdf where python)/bin/virtualenvwrapper.sh
 fi
 
