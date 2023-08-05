@@ -1,3 +1,5 @@
+export GOOGLE_APPLICATION_CREDENTIALS=/Users/craigisrael/.config/gcloud/application_default_credentials.json
+
 if [ -f /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
