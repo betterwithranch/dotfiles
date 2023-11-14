@@ -25,7 +25,7 @@
 [push]
 	default = current
 [user]
-	email = craig@theisraels.net
+  email = "craig@theisraels.net"
 	name = Craig Israel
 [pager]
   branch = false
@@ -33,4 +33,7 @@
 # For example, user.email
 [include]
   path = ~/.gitconfig.local
-  path = ~/.gitconfig_local
+  path = ./.gitconfig_local
+
+[url "git@github.com:"]
+	insteadOf = https://github.com
