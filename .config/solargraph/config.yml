@@ -1,0 +1,18 @@
+---
+include:
+- "**/*.rb"
+- ".bundle/**/*"
+exclude:
+- spec/**/*
+- test/**/*
+- vendor/**/*
+require: 
+  - activemodel
+  - activerecord
+  - chime-service-base
+domains: []
+reporters:
+- require_not_found
+require_paths: []
+plugins: []
+max_files: 35000
