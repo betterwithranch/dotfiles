@@ -2,6 +2,7 @@
 # curl -o _git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 # cd -
 
+mkdir -p ~/.vim/ftplugin
 mkdir -p ~/backups/ftplugin
 for f in .asdfrc .bash_profile .bashrc .editrc .gemrc .gitconfig .inputrc .irbrc .pryrc .rspec .tmux.conf .vimrc .vim/ftplugin/*.vim
 do
@@ -20,17 +21,21 @@ do
   ln -s ~/dev/dotfiles/$f ~/$f
 done
 
-if [[ -f "~/.aliases" ]]; then
-  ln -s ~/dev/dotfiles/.zshrc ~/.aliases
-fi
-
 # link gitignore to default position
 mkdir -p ~/.config/git
 
-if [[ ! -f "$f" ]]; then
-  ln -s ~/dev/dotfiles/.gitignore ~/.config/git/ignore
+echo "removing aliases"
+rm ~/.aliases
+
+if [[ ! -L ~/.aliases ]]; then
+  echo "adding aliases"
+  ln -s ~/dev/dotfiles/.zshrc ~/.aliases
 fi
 
-if [[ ! -f "$f" ]]; then
-  ln -s ~/dev/dotfiles/.zhsrc ~/.aliases
+echo "removing git ignore"
+rm ~/.config/git/ignore
+
+if [[ ! -L ~/.config/git/ignore ]]; then
+  echo "adding git ignore"
+  ln -s ~/dev/dotfiles/.gitignore ~/.config/git/ignore
 fi
