@@ -1,12 +1,13 @@
-if [ -f /opt/homebrew/bin/brew ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
 export PATH="$PATH:$(yarn global bin)"
 export EDITOR=vim
+
+# For Apple Silicon
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+
 alias mux=tmuxinator
 alias dbm="bundle exec rails db:migrate"
 alias s="bundle exec rspec spec"
-set -o vi
+alias vim=nvim
 
 installOhMyZsh() {
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -24,7 +25,10 @@ GIT_VERSION=`git --version | cut -d' ' -f3-`
 #fpath=(~/.zsh $fpath)
 #autoload -Uz compinit && compinit
 
-. $(brew --prefix asdf)/libexec/asdf.sh
+
+# Zsh plugins
+plugins=(git docker docker-compose rails ruby)
+source $ZSH/oh-my-zsh.sh
 
 if [ -f $(asdf where python)/bin/virtualenvwrapper.sh ]; then
   export WORKON_HOME=~/dev/python
@@ -39,3 +43,4 @@ if [ -f '/Users/craig.israel/google-cloud-sdk/completion.zsh.inc' ]; then . '/Us
 
 autoload -U edit-command-line
 bindkey -M vicmd v edit-command-line
+set -o vi
