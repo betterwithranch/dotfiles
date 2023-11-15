@@ -1,9 +1,11 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
-
 lua << EOF
   local nvim_lsp = require('lspconfig')
+  vim.g.coq_settings = {
+    auto_start = 'shut-up',
+  }
   local coq = require("coq")
   nvim_lsp.solargraph.setup(coq.lsp_ensure_capabilities({
     autostart = true
@@ -57,5 +59,11 @@ lua << EOF
       debounce_text_changes = 150,
     }
     }
+  end
+
+  local signs = { Error = "❗️", Warn = "⚠️", Hint = "H", Info = "⚠️" }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
 EOF
