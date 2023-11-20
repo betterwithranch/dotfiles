@@ -1,11 +1,11 @@
 ---
 include:
 - "**/*.rb"
-- ".bundle/**/*"
 exclude:
 - spec/**/*
 - test/**/*
 - vendor/**/*
+- ".bundle/**/*"
 require: 
   - activemodel
   - activerecord
@@ -14,5 +14,6 @@ domains: []
 reporters:
 - require_not_found
 require_paths: []
-plugins: []
+plugins: 
+ - solargraph-rails
 max_files: 35000

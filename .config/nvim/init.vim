@@ -7,9 +7,12 @@ lua << EOF
     auto_start = 'shut-up',
   }
   local coq = require("coq")
-  nvim_lsp.solargraph.setup(coq.lsp_ensure_capabilities({
-    autostart = true
-  }))
+--  nvim_lsp.solargraph.setup(coq.lsp_ensure_capabilities({
+--    autostart = true,
+--    cmd = "/Users/craig.israel/.asdf/shims/solargraph",
+--    root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
+--    diagnostics = false,
+--  }))
 
   -- Use an on_attach function to only map the following keys
   -- after the language server attaches to the current buffer
@@ -49,17 +52,30 @@ lua << EOF
   local servers = { 
     solargraph = {
       cmd = "/Users/craig.israel/.asdf/shims/solargraph",
-      root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", ".")
+      root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
+      diagnostics = false,
       }
     }
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
+
+--  for _, lsp in ipairs(servers) do
+--    nvim_lsp['solargraph'].setup(coq.lsp_ensure_capabilities({
+--    on_attach = on_attach,
+--    flags = {
+--      debounce_text_changes = 150,
+--    },
+--      cmd = "/Users/craig.israel/.asdf/shims/solargraph",
+--      root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
+--      diagnostics = false,
+--    }))
+--  end
+
+  nvim_lsp.solargraph.setup(coq.lsp_ensure_capabilities({
+    autostart = true,
     on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-    }
-  end
+--    cmd = "/Users/craig.israel/.asdf/shims/solargraph",
+    root_dir = nvim_lsp.util.root_pattern("Gemfile", ".git", "."),
+    diagnostics = true,
+  }))
 
   local signs = { Error = "❗️", Warn = "⚠️", Hint = "H", Info = "⚠️" }
   for type, icon in pairs(signs) do
