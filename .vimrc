@@ -74,7 +74,9 @@ let g:rails_default_file='config/database.yml'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_ruby_rubocop_executable = 'bundle'
-let g:ale_use_neovim_diagnostics_api = 1
+" Needs neovim 0.6+. Add check to exclude when not available
+" Currently disabled because the git commit prompt uses vim, not neovim
+" let g:ale_use_neovim_diagnostics_api = 1
 " You can disable this option too
 " if you don't want linters to run on opening a file
 let g:ale_lint_on_enter = 0
