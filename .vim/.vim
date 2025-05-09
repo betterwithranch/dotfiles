@@ -1,1 +1,0 @@
-/Users/craig.israel/dev/dotfiles/.vim

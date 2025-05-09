@@ -85,6 +85,7 @@ let g:ale_lint_on_save = 1
 let g:ale_linters = {
 \  'ruby': ['rubocop'],
 \  'typescript': ['eslint'],
+\  'python': ['flake8'],
 \}
 let g:ale_fixers = {
 \ 'javascript': ['prettier'],
@@ -98,6 +99,8 @@ let g:ale_sign_warning = "⚠️"
 let g:ale_sign_style_warning = "⚠️"
 let g:ale_sign_error = "❗️"
 let g:ale_sign_style_error = "❗️"
+let g:ale_python_auto_pipenv = 1
+let g:ale_python_pyright_auto_pipenv = 1
 highlight ALEErrorSign ctermfg=red
 highlight ALEWarningSign ctermfg=yellow
 
@@ -148,7 +151,13 @@ augroup myfiletypes
     autocmd!
     autocmd FileType ruby,eruby set ai sw=2 sts=2 et
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType python set ts=4 sts=4 sw=4 expandtab
 augroup END
+
+autocmd FileType python let g:python_indent = {}
+autocmd FileType python let g:pyindent_open_paren = 'shiftwidth()'
+autocmd FileType python let g:python_indent.continue = 'shiftwidth()'
+autocmd FileType python let g:python_indent.closed_paren_align_last_line = v:false
 
 set foldmethod=indent
 set foldnestmax=10
