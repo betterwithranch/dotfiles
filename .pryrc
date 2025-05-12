@@ -2,6 +2,11 @@ if defined?(ActiveRecord)
   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
 
+if defined?(Rails) && Rails.env
+  if defined?(Rails::ConsoleMethods)
+    include Rails::ConsoleMethods
+  end
+end
 #
 # Usage:
 #     > show_mongo

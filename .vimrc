@@ -48,6 +48,17 @@ Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 " Plug 'ms-jpq/cog.thirdparty', { 'branch', '3p' }
 let g:coc_global_extensions = ['coc-tsserver', 'coc-solargraph']
+=======
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+"let g:deoplete#enable_at_startup = 0
 
 call plug#end()
 
