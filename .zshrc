@@ -1,9 +1,15 @@
-export PATH="$PATH:$(yarn global bin)"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$dev/dotfiles/scripts:$PATH"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_NO_AUTO_UPDATE=1
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+
+installOhMyZsh() {
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+}
+
 
 # For Apple Silicon
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
@@ -16,10 +22,6 @@ alias vim=nvim
 alias tmux="TERM=screen-256color-bce tmux"
 alias mux="tmuxinator"
 alias rspec="bundle exec rspec"
-
-installOhMyZsh() {
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-}
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
 
@@ -37,6 +39,8 @@ GIT_VERSION=`git --version | cut -d' ' -f3-`
 # Zsh plugins
 plugins=(aws direnv docker docker-compose git rails ruby)
 source $ZSH/oh-my-zsh.sh
+
+export PATH="$PATH:$(yarn global bin)"
 
 autoload -U edit-command-line
 bindkey -M vicmd v edit-command-line
