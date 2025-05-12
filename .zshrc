@@ -4,6 +4,8 @@ export EDITOR=vim
 # For Apple Silicon
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
+alias cdk="npx cdk"
+>>>>>>> 2109f5d (adds direnv and docker cleanup)
 alias mux=tmuxinator
 alias dbm="bundle exec rails db:migrate"
 alias s="bundle exec rspec spec"
@@ -44,3 +46,10 @@ if [ -f '/Users/craig.israel/google-cloud-sdk/completion.zsh.inc' ]; then . '/Us
 autoload -U edit-command-line
 bindkey -M vicmd v edit-command-line
 set -o vi
+
+dcleanup(){
+  echo "removing containers"
+    docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+    echo "removing images"
+    docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+}
