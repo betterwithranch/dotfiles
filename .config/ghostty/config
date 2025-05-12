@@ -1,6 +1,6 @@
 # keybind = ctrl+u>'=new_split:right
 # keybind = ctrl+u>shift+5=new_split:down
-# keybind = ctrl+u>f=toggle_fullscreen
+keybind = ctrl+u>f=toggle_fullscreen
 # keybind = ctrl+u>z=toggle_split_zoom
 # keybind = ctrl+u>u=goto_split:previous
 # keybind = ctrl+u>ctrl+u=goto_split:previous
