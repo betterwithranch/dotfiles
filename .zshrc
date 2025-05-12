@@ -1,15 +1,21 @@
 export PATH="$PATH:$(yarn global bin)"
-export EDITOR=vim
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$dev/dotfiles/scripts:$PATH"
+
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # For Apple Silicon
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 alias cdk="npx cdk"
->>>>>>> 2109f5d (adds direnv and docker cleanup)
 alias mux=tmuxinator
 alias dbm="bundle exec rails db:migrate"
 alias s="bundle exec rspec spec"
 alias vim=nvim
+alias tmux="TERM=screen-256color-bce tmux"
+alias mux="tmuxinator"
+alias rspec="bundle exec rspec"
 
 installOhMyZsh() {
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -29,19 +35,8 @@ GIT_VERSION=`git --version | cut -d' ' -f3-`
 
 
 # Zsh plugins
-plugins=(git docker docker-compose rails ruby)
+plugins=(aws direnv docker docker-compose git rails ruby)
 source $ZSH/oh-my-zsh.sh
-
-if [ -f $(asdf where python)/bin/virtualenvwrapper.sh ]; then
-  export WORKON_HOME=~/dev/python
-  . $(asdf where python)/bin/virtualenvwrapper.sh
-fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/craig.israel/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/craig.israel/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/craig.israel/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/craig.israel/google-cloud-sdk/completion.zsh.inc'; fi
 
 autoload -U edit-command-line
 bindkey -M vicmd v edit-command-line
@@ -53,3 +48,14 @@ dcleanup(){
     echo "removing images"
     docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
+
+# Preferred editor for local and remote sessions
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='nvim'
+ fi
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true

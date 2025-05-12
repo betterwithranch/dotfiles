@@ -1,1 +1,10 @@
-/Users/craig.israel/dev/dotfiles/.gitignore
+.DS_Store
+*.swp
+*.swo
+tags
+.vim/.netrwhist
+.vim/bundle
+.vim/plugged
+.gitconfig.local
+scripts/pair.yml
+.config/yarn
