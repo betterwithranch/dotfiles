@@ -33,7 +33,9 @@
 # For example, user.email
 [include]
   path = ~/.gitconfig.local
-  path = ./.gitconfig_local
 
 [url "git@github.com:"]
 	insteadOf = https://github.com
+
+[init]
+	defaultBranch = main
