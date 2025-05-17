@@ -2,7 +2,7 @@
 # curl -o _git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 # cd -
 
-for f in .asdfrc .bash_profile .bashrc .editrc .gemrc .gitconfig .inputrc .irbrc .pryrc .rspec .tmux.conf .zshrc Brewfile
+for f in .asdfrc .bash_profile .bashrc .editrc .gemrc .gitconfig .inputrc .irbrc .pryrc .rspec .tmux.conf .vim .vimrc .zshrc Brewfile
 do
   if [[ -L ~/$f ]]; then
     echo "removing symbolic link ~/$f"
