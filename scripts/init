@@ -25,3 +25,9 @@ fi
 # checkout dotfiles from repo
 config checkout
 config config status.showUntrackedFiles no
+if [ $? = 0 ]; then
+  echo "Checkout completed successfully"
+else
+  echo "Checkout could not be completed"
+  exit 1
+fi
