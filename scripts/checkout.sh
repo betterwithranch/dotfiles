@@ -6,9 +6,10 @@ echo Checking out dotfiles repo
 echo
 echo
 
+# Force https for dotfiles repo
+git config --global url."https://github.com/betterwithranch/dotfiles.git".insteadOf https://github.com/betterwithranch/dotfiles.git
+
 if [ -z "$DOTFILES_LOCAL" ]; then
-  # Force https for dotfiles repo
-  git config --global url."https://github.com/betterwithranch/dotfiles.git".insteadOf https://github.com/betterwithranch/dotfiles.git
 
   rm -rf $HOME/.dotfiles
 
@@ -19,9 +20,6 @@ if [ -z "$DOTFILES_LOCAL" ]; then
     echo "Could not clone repo. Exiting ..."
     exit 1
   fi
-
-  # Remove https for dotfiles
-  git config --global --remove-section url."https://github.com/betterwithranch/dotfiles.git"
 fi
 
 # define config alias locally since the dotfiles
@@ -46,10 +44,24 @@ fi
 
 # checkout dotfiles from repo
 config checkout
+
+if [ $? -ne 0 ]; then
+  echo "Error checking out dotfiles"
+  exit 1
+fi
+
 config config status.showUntrackedFiles no
+if [ $? -ne 0 ]; then
+  echo "Error updating showUntrackedFiles config"
+  exit 1
+fi
+
+# Remove https for dotfiles
+git config --global --remove-section url."https://github.com/betterwithranch/dotfiles.git"
+
 if [ $? = 0 ]; then
   echo "Checkout completed successfully"
 else
-  echo "Checkout could not be completed"
+  echo "Error removing https insteadOf"
   exit 1
 fi
