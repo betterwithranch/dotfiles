@@ -4,7 +4,7 @@ git clone --bare git@github.com:betterwithranch/dotfiles.git $HOME/.dotfiles
 # define config alias locally since the dotfiles
 # aren't installed on the system yet
 function config {
-  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
+  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
 
 # create a directory to backup existing dotfiles to
