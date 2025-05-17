@@ -17,7 +17,13 @@ if [ $? = 0 ]; then
   echo "Checked out dotfiles from git@github.com:betterwithranch/dotfiles.git"
 else
   echo "Moving existing dotfiles to ~/.dotfiles-backup"
-  config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .dotfiles-backup/{}
+  FILES=$(config checkout 2>&1 | egrep "\s+\." | awk {'print $1'})
+
+  echo files=$FILES
+  for f in $FILES; do
+    mkdir -p $(dirname $HOME/.dotfiles-backup/$f) &&
+      mv $HOME/$f $HOME/.dotfiles-backup/$f
+  done
 fi
 
 # checkout dotfiles from repo
