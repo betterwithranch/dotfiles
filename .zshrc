@@ -3,6 +3,7 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$dev/dotfiles/scri
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_BUNDLE_FILE=~/Brewfile
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
@@ -22,6 +23,12 @@ alias vim=nvim
 alias tmux="TERM=screen-256color-bce tmux"
 alias mux="tmuxinator"
 alias rspec="bundle exec rspec"
+
+alias pips="pipenv shell"
+alias pm="python manage.py"
+alias psh="python manage.py shell"
+# requires django-extensions
+alias pshp="python manage.py shell_plus"
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
 
@@ -63,3 +70,13 @@ dcleanup(){
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+# Yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
