@@ -10,6 +10,7 @@ xcode-select -p 1>/dev/null
 
 if [ $? -ne 0 ]; then
   echo "Xcode command line tools are not installed. Installing ..."
+  echo "Search for opened dialog to install"
   sudo xcode-select --install
 
   if [ $? -ne 0 ]; then
