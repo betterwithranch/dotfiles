@@ -1,6 +1,22 @@
 #!/usr/bin/env bash
-rm -rf $HOME/.dotfiles
-git clone --bare https://github.com/betterwithranch/dotfiles.git $HOME/.dotfiles
+
+echo
+echo
+echo Checking out dotfiles repo
+echo
+echo
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ -z "$DOTFILES_LOCAL" ]; then
+  rm -rf $HOME/.dotfiles
+  git clone --bare https://github.com/betterwithranch/dotfiles.git $HOME/.dotfiles
+
+  if [ $? -ne 0 ]; then
+    echo "Could not clone repo. Exiting..."
+    exit 1
+  fi
+fi
 
 # define config alias locally since the dotfiles
 # aren't installed on the system yet
@@ -32,4 +48,11 @@ else
   exit 1
 fi
 
-config config status.showUntrackedFiles no
+source "$SCRIPT_DIR/homebrew.sh"
+
+echo
+echo
+echo Initialization is complete
+echo
+echo
+>>>>>>> bf7047d (adds homebrew script)
