@@ -30,6 +30,9 @@ alias psh="python manage.py shell"
 # requires django-extensions
 alias pshp="python manage.py shell_plus"
 
+# dotfile repo
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
 GIT_VERSION=`git --version | cut -d' ' -f3-`
 
 # configure git completion in bash
