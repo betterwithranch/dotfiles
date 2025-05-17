@@ -56,9 +56,6 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Remove https for dotfiles
-git config --global --remove-section url."https://github.com/betterwithranch/dotfiles.git"
-
 if [ $? = 0 ]; then
   echo "Checkout completed successfully"
 else
