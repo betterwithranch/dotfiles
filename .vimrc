@@ -48,7 +48,6 @@ Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 " Plug 'ms-jpq/cog.thirdparty', { 'branch', '3p' }
 let g:coc_global_extensions = ['coc-tsserver', 'coc-solargraph']
-=======
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
