@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+source "$SCRIPT_DIR/xcode-select.sh"
+
 echo
 echo
 echo Checking out dotfiles repo
 echo
 echo
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [ -z "$DOTFILES_LOCAL" ]; then
   rm -rf $HOME/.dotfiles
