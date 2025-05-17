@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+rm -rf $HOME/.dotfiles
 git clone --bare git@github.com:betterwithranch/dotfiles.git $HOME/.dotfiles
 
 # define config alias locally since the dotfiles
