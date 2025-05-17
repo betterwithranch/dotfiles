@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 rm -rf $HOME/.dotfiles
-git clone --bare https://github.com/betterwithranch/dotfiles.git $HOME/.dotfiles
+git clone --bare git@github.com:betterwithranch/dotfiles.git $HOME/.dotfiles
 
 # define config alias locally since the dotfiles
 # aren't installed on the system yet
@@ -9,7 +9,7 @@ function config {
 }
 
 # create a directory to backup existing dotfiles to
-mkdir -p .dotfiles-backup
+mkdir -p $HOME/.dotfiles-backup
 
 config checkout
 
