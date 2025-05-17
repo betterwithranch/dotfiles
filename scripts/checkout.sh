@@ -7,13 +7,21 @@ echo
 echo
 
 if [ -z "$DOTFILES_LOCAL" ]; then
+  # Force https for dotfiles repo
+  git config --global url."https://github.com/betterwithranch/dotfiles.git".insteadOf https://github.com/betterwithranch/dotfiles.git
+
   rm -rf $HOME/.dotfiles
+
+  echo "Cloning dotfiles repo ..."
   git clone --bare https://github.com/betterwithranch/dotfiles.git $HOME/.dotfiles
 
   if [ $? -ne 0 ]; then
-    echo "Could not clone repo. Exiting..."
+    echo "Could not clone repo. Exiting ..."
     exit 1
   fi
+
+  # Remove https for dotfiles
+  git config --global --remove-section url."https://github.com/betterwithranch/dotfiles.git"
 fi
 
 # define config alias locally since the dotfiles

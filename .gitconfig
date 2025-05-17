@@ -39,9 +39,5 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com
 
-# Force https for dotfiles repo
-[url "https://github.com/betterwithranch/dotfiles.git"]
-  insteadOf = https://github.com/betterwithranch/dotfiles.git
-
 [init]
 	defaultBranch = main
