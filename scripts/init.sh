@@ -11,13 +11,13 @@ fi
 
 curl https://raw.githubusercontent.com/betterwithranch/dotfiles/main/scripts/xcode-select.sh | bash
 
-if [ $? -ne 0]; then
+if [ $? -ne 0 ]; then
   exit 1
 fi
 
 # Checkout dotfiles repo
 curl https://raw.githubusercontent.com/betterwithranch/dotfiles/main/scripts/checkout.sh | bash
-if [ $? -ne 0]; then
+if [ $? -ne 0 ]; then
   exit 1
 fi
 
@@ -31,7 +31,7 @@ SCRIPT_DIR=$(config rev-parse --show-toplevel)/scripts
 
 # Install homebrew
 source "$HOME/scripts/homebrew.sh"
-if [ $? -ne 0]; then
+if [ $? -ne 0 ]; then
   exit 1
 fi
 
