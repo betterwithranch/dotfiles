@@ -6,6 +6,12 @@ echo "Oh-my-zsh"
 echo
 echo
 
+# define config alias locally since the dotfiles
+# aren't installed on the system yet
+function config {
+  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+}
+
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Oh-my-zsh is not installed. Installing ..."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
