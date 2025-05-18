@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 echo
 echo
@@ -14,7 +14,7 @@ function config {
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Oh-my-zsh is not installed. Installing ..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
   if [ $? -ne 0 ]; then
     echo "Error installing oh-my-zsh. Exiting ..."
@@ -27,5 +27,7 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     exit 1
   fi
 fi
+
+source ~/.zshrc
 
 echo "Oh-my-zsh is installed"

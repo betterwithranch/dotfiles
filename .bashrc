@@ -1,5 +1,5 @@
 export dev=~/dev
-export PATH="/usr/local/bin:/usr/local/sbin:$dev/dotfiles/scripts:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export AUTOFEATURE=true
 export GOPATH=~/dev/go
 export PATH=$PATH:$GOPATH/bin
@@ -55,8 +55,6 @@ alias jrspec="bundle exec rspec"
 
 alias tag="ctags -R --exclude=.bundle"
 
-
-
 alias fixtures="bundle exec spec spec/controllers --tag fixtures"
 alias autotester="bundle exec autotest"
 alias boom="bundle install && bundle exec rake db:migrate db:test:prepare"
@@ -85,7 +83,7 @@ alias usepg93="export PATH=/Applications/Postgres93.app/Contents/MacOS/bin/:$PAT
 # process aliases
 alias running="ps aux | grep "
 # bash customizations
-export CLICOLOR=1;
+export CLICOLOR=1
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export PS1=" \[\033[38m\]\u\[\033[01;34m\] \w \[\033[31m\]\`ruby -e \"print (%x{git branch 2> /dev/null}.split(%r{\n}).grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\`\[\033[37m\]$\[\033[00m\] "
 
@@ -96,8 +94,7 @@ if [ -f /usr/local/share/bash-completion/bash_completion ]; then
   . /usr/local/share/bash-completion/bash_completion
 fi
 
-if [ -e ~/.local_aliases ]
-then
+if [ -e ~/.local_aliases ]; then
   . ~/.local_aliases
 fi
 
@@ -110,12 +107,12 @@ VIM=~/.vimrc
 set -o vi
 
 usepg() {
-  echo $PATH;
+  echo $PATH
 }
 
-dcleanup(){
-    docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
-    docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+dcleanup() {
+  docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+  docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
 # Add the following to your ~/.bashrc or ~/.zshrc
@@ -124,7 +121,7 @@ dcleanup(){
 
 hitch() {
   command hitch "$@"
-  if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
+  if [[ -s "$HOME/.hitch_export_authors" ]]; then source "$HOME/.hitch_export_authors"; fi
 }
 alias unhitch='hitch -u'
 
@@ -136,7 +133,7 @@ alias unhitch='hitch -u'
 
 hitch() {
   command hitch "$@"
-  if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
+  if [[ -s "$HOME/.hitch_export_authors" ]]; then source "$HOME/.hitch_export_authors"; fi
 }
 alias unhitch='hitch -u'
 
@@ -146,8 +143,8 @@ flushdns() {
 }
 # Uncomment to persist pair info between terminal instances
 # hitch
-source ~/dev/dotfiles/tmuxinator.bash
-source ~/dev/dotfiles/scripts/k8s/execpod
+source ~/tmuxinator.bash
+source ~/scripts/k8s/execpod
 
 # tabtab source for packages
 # uninstall by removing these lines

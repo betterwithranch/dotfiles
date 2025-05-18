@@ -1,5 +1,5 @@
 export PATH="/usr/local/opt/openssl/bin:$PATH"
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$dev/dotfiles/scripts:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_NO_AUTO_UPDATE=1

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 grep "auth\s*sufficient\s*pam_tid.so" /etc/pam.d/sudo_local
 
