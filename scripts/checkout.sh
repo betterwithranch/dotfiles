@@ -6,6 +6,12 @@ echo Checking out dotfiles repo
 echo
 echo
 
+# define config alias locally since the dotfiles
+# aren't installed on the system yet
+function config {
+  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+}
+
 # Force https for dotfiles repo
 git config --global url."https://github.com/betterwithranch/dotfiles.git".insteadOf https://github.com/betterwithranch/dotfiles.git
 
@@ -20,12 +26,6 @@ if [ $? -ne 0 ]; then
     echo "Could not clone repo. Exiting ..."
     exit 1
   fi
-
-  # define config alias locally since the dotfiles
-  # aren't installed on the system yet
-  function config {
-    /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
-  }
 
   config checkout
 
