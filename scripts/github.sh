@@ -16,7 +16,7 @@ fi
 grep id_rsa.pub ~/.ssh/gh_keys &>/dev/null || gh auth status | grep "Logged in to github.com"
 
 if [ $? -ne 0 ]; then
-  gh auth login
+  gh auth login -h github.com -s admin:public_key
   gh ssh-key add ~/.ssh/id_rsa.pub
   grep id_rsa.pub ~/.ssh/gh_keys &>/dev/null | echo id_rsa.pub >> ~/.ssh/gh_keys
 fi
