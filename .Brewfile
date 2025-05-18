@@ -1,11 +1,9 @@
 tap "buo/cask-upgrade"
-tap "homebrew/bundle"
-tap "homebrew/services"
 brew "advancecomp"
 brew "zstd"
 brew "webp"
 brew "asdf"
-brew "openssl@3", link: false
+brew "openssl@3"
 brew "awscli"
 brew "awsebcli"
 brew "bash"
