@@ -13,9 +13,10 @@ else
   echo "ssh key exists"
 fi
 
-gh auth status | grep "Logged in to github.com"
+grep id_rsa.pub ~/.ssh/gh_keys &>/dev/null || gh auth status | grep "Logged in to github.com"
 
 if [ $? -ne 0 ]; then
   gh auth login
-  gh ssh-key add ~/.ssh/_id_rsa
+  gh ssh-key add ~/.ssh/id_rsa.pub
+  grep id_rsa.pub ~/.ssh/gh_keys &>/dev/null | echo id_rsa.pub >> ~/.ssh/gh_keys
 fi
