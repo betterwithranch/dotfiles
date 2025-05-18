@@ -45,6 +45,8 @@ fi
 # checkout dotfiles from repo
 config checkout
 
+git config --global --remove-section url."git@github.com:"
+
 if [ $? -ne 0 ]; then
   echo "Error checking out dotfiles"
   exit 1
