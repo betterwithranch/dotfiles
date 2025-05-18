@@ -35,6 +35,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Restore temporary git config changes
+config checkout .gitconfig
+
 echo
 echo
 echo Initialization is complete
