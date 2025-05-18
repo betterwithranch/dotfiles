@@ -49,7 +49,7 @@ if [ $? -ne 0 ]; then
     exit 1
   fi
 else
-  config pull
+  config pull --rebase
 
   if [ $? -ne 0 ]; then
     echo "Error pulling latest dotfiles"
