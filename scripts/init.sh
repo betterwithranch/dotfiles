@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-grep "^#\sauth\s*sufficient\s*pam_tid.so" /etc/pam.d/sudo_local
+grep "auth\s*sufficient\s*pam_tid.so" /etc/pam.d/sudo_local
 
 if [ $? -ne 0 ]; then
   echo "Setting up touch id for sudo commands"
