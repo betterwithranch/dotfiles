@@ -41,5 +41,3 @@
 
 [init]
 	defaultBranch = main
-[url "https://github.com/betterwithranch/dotfiles.git"]
-	insteadOf = https://github.com/betterwithranch/dotfiles.git
