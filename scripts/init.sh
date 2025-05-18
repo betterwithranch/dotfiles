@@ -71,6 +71,9 @@ fi
 # Restore temporary git config changes
 config checkout .gitconfig
 
+# Install ssh key on github
+source $HOME/scripts/github.sh
+
 echo
 echo
 echo Initialization is complete
