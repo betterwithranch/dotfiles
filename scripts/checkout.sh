@@ -49,12 +49,14 @@ if [ $? -ne 0 ]; then
     exit 1
   fi
 else
+  echo "committing"
   config add .gitconfig && config commit -m "commits https gitconfig for pull"
   if [ $? -ne 0 ]; then
     echo "Error committing temp .gitconfig"
     exit 1
   fi
 
+  echo "pulling latest from repo"
   config pull --rebase
 
   if [ $? -ne 0 ]; then
@@ -63,6 +65,7 @@ else
   fi
 
   # Reset temporary commit
+  echo "resetting commit"
   config reset HEAD^
 
   if [ $? -ne 0 ]; then
