@@ -9,9 +9,9 @@ echo
 # Force https for dotfiles repo
 git config --global url."https://github.com/betterwithranch/dotfiles.git".insteadOf https://github.com/betterwithranch/dotfiles.git
 
-if [ -z "$DOTFILES_LOCAL" ]; then
+git -C $HOME/.dotfiles
 
-  rm -rf $HOME/.dotfiles
+if [ $? -ne 0 ]; then
 
   echo "Cloning dotfiles repo ..."
   git clone --bare https://github.com/betterwithranch/dotfiles.git $HOME/.dotfiles

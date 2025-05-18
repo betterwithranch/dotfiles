@@ -33,6 +33,12 @@ function config {
 
 SCRIPT_DIR=$(config rev-parse --show-toplevel)/scripts
 
+# Install oh-my-zsh
+source "$HOME/scripts/oh-my-zsh.sh"
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 # Install homebrew
 source "$HOME/scripts/homebrew.sh"
 if [ $? -ne 0 ]; then
