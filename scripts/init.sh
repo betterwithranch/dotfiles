@@ -37,7 +37,7 @@ fi
 # define config alias locally since the dotfiles
 # aren't installed on the system yet
 function config {
-  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
 }
 
 SCRIPT_DIR=$(config rev-parse --show-toplevel)/scripts

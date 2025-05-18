@@ -9,13 +9,13 @@ echo
 # define config alias locally since the dotfiles
 # aren't installed on the system yet
 function config {
-  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
 }
 
 # Force https for dotfiles repo
 git config --global url."https://github.com/betterwithranch/dotfiles.git".insteadOf https://github.com/betterwithranch/dotfiles.git
 
-git -C $HOME/.dotfiles rev-parse
+[ -d ~/.dotfiles ] && git -C $HOME/.dotfiles rev-parse
 
 if [ $? -ne 0 ]; then
 
@@ -49,12 +49,11 @@ if [ $? -ne 0 ]; then
     exit 1
   fi
 else
-  echo "adding"
-  config add .gitconfig && \
-    config commit -m "commits https gitconfig for pull"
+  config add -u -v && \
+    config commit -v --no-edit -m "temp commit for git pull"
 
   if [ $? -ne 0 ]; then
-    echo "Error committing temp .gitconfig"
+    echo "Error adding/committing .gitconfig temporarily"
     exit 1
   fi
 
@@ -68,8 +67,8 @@ else
 
   # Reset temporary commit
   echo "resetting commit"
-  config reset --soft HEAD^
-  config restore --staged .gitconfig
+  config reset --soft HEAD^ && \
+    config restore --staged .gitconfig
 
   if [ $? -ne 0 ]; then
     echo "Error committing temp .gitconfig"
