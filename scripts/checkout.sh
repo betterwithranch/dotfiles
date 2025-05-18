@@ -50,7 +50,7 @@ if [ $? -ne 0 ]; then
   fi
 else
   echo "adding"
-  config add .gitconfig &&
+  config add .gitconfig && \
     config commit -m "commits https gitconfig for pull"
 
   if [ $? -ne 0 ]; then
@@ -68,7 +68,8 @@ else
 
   # Reset temporary commit
   echo "resetting commit"
-  config reset HEAD^
+  config reset --soft HEAD^
+  config restore --staged .gitconfig
 
   if [ $? -ne 0 ]; then
     echo "Error committing temp .gitconfig"
