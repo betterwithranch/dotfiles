@@ -20,30 +20,42 @@ if [ $? -ne 0 ]; then
     echo "Could not clone repo. Exiting ..."
     exit 1
   fi
-fi
 
-# define config alias locally since the dotfiles
-# aren't installed on the system yet
-function config {
-  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
-}
+  # define config alias locally since the dotfiles
+  # aren't installed on the system yet
+  function config {
+    /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+  }
 
-config checkout
+  config checkout
 
-if [ $? = 0 ]; then
-  echo "Checked out dotfiles from git@github.com:betterwithranch/dotfiles.git"
+  if [ $? = 0 ]; then
+    echo "Checked out dotfiles from git@github.com:betterwithranch/dotfiles.git"
+  else
+    echo "Moving existing dotfiles to ~/.dotfiles-backup"
+    FILES=$(config checkout 2>&1 | egrep "^\s+" | awk {'print $1'})
+
+    for f in $FILES; do
+      mkdir -p $(dirname $HOME/.dotfiles-backup/$f) &&
+        mv $HOME/$f $HOME/.dotfiles-backup/$f
+    done
+  fi
+
+  # checkout dotfiles from repo
+  config checkout
+
+  if [ $? -ne 0 ]; then
+    echo "Error checking out dotfiles"
+    exit 1
+  fi
 else
-  echo "Moving existing dotfiles to ~/.dotfiles-backup"
-  FILES=$(config checkout 2>&1 | egrep "^\s+" | awk {'print $1'})
+  config pull
 
-  for f in $FILES; do
-    mkdir -p $(dirname $HOME/.dotfiles-backup/$f) &&
-      mv $HOME/$f $HOME/.dotfiles-backup/$f
-  done
+  if [ $? -ne 0 ]; then
+    echo "Error pulling latest dotfiles"
+    exit 1
+  fi
 fi
-
-# checkout dotfiles from repo
-config checkout
 
 git config --global --remove-section url."git@github.com:"
 
