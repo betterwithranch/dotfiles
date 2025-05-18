@@ -13,8 +13,6 @@ fi
 
 # Install Xcode command line tools
 
-echo $RUN_LOCAL
-exit
 if [[ -z "${RUN_LOCAL}" ]];then
   curl https://raw.githubusercontent.com/betterwithranch/dotfiles/main/scripts/xcode-select.sh | bash
 else
