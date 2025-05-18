@@ -13,10 +13,12 @@ fi
 
 # Install Xcode command line tools
 
+echo $RUN_LOCAL
+exit
 if [[ -z "${RUN_LOCAL}" ]];then
-  source $HOME/scripts/xcode-select.sh
-else
   curl https://raw.githubusercontent.com/betterwithranch/dotfiles/main/scripts/xcode-select.sh | bash
+else
+  source $HOME/scripts/xcode-select.sh
 fi
 
 if [ $? -ne 0 ]; then
@@ -25,9 +27,9 @@ fi
 
 # Checkout dotfiles repo
 if [[ -z "${RUN_LOCAL}" ]];then
-  source $HOME/scripts/checkout.sh
-else
   curl https://raw.githubusercontent.com/betterwithranch/dotfiles/main/scripts/checkout.sh | bash
+else
+  source $HOME/scripts/checkout.sh
 fi
 
 if [ $? -ne 0 ]; then

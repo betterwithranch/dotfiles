@@ -50,7 +50,13 @@ if [ $? -ne 0 ]; then
   fi
 else
   echo "committing"
-  config add .gitconfig && config commit -m "commits https gitconfig for pull"
+  config add .gitconfig
+  if [ $? -ne 0 ]; then
+    echo "Error adding temp .gitconfig"
+    exit 1
+  fi
+  config commit -m "commits https gitconfig for pull"
+
   if [ $? -ne 0 ]; then
     echo "Error committing temp .gitconfig"
     exit 1
