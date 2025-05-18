@@ -9,7 +9,7 @@ echo
 # Force https for dotfiles repo
 git config --global url."https://github.com/betterwithranch/dotfiles.git".insteadOf https://github.com/betterwithranch/dotfiles.git
 
-git -C $HOME/.dotfiles
+git -C $HOME/.dotfiles rev-parse
 
 if [ $? -ne 0 ]; then
 
