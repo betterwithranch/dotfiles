@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
-echo "Setting up touch id for sudo commands"
-sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee /etc/pam.d/sudo_local
+grep "^#\sauth\s*sufficient\s*pam_tid.so" /etc/pam.d/sudo_local
+
+if [ $? -ne 0 ]; then
+  echo "Setting up touch id for sudo commands"
+  sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee /etc/pam.d/sudo_local
+fi
 
 if [ $? -ne 0 ]; then
   echo "Error updating sudo_local. Exiting ..."
