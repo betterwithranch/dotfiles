@@ -48,6 +48,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Install tmux plugins
+source "$HOME/scripts/plugins.sh"
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 # Install homebrew
 source "$HOME/scripts/homebrew.sh"
 if [ $? -ne 0 ]; then
