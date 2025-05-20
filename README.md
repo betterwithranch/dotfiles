@@ -1,7 +1,7 @@
 # Installation
 
 ```
-curl https://raw.githubusercontent.com/betterwithranch/dotfiles/main/scripts/init.sh | bash
+curl https://raw.githubusercontent.com/betterwithranch/dotfiles/main/scripts/init.sh | zsh
 ```
 
 

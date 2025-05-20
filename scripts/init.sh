@@ -49,7 +49,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Install tmux plugins
-source "$HOME/scripts/plugins.sh"
+source "$HOME/scripts/tmux.sh"
 if [ $? -ne 0 ]; then
   exit 1
 fi
