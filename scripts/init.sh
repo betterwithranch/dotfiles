@@ -60,6 +60,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Install asdf languages
+source "$HOME/scripts/asdf.sh"
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 grep "/opt/homebrew/lib/pam/pam_reattach.so" /etc/pam.d/sudo_local
 
 if [ $? -ne 0 ]; then
