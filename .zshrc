@@ -47,7 +47,7 @@ GIT_VERSION=`git --version | cut -d' ' -f3-`
 
 
 # Zsh plugins
-plugins=(aws direnv docker docker-compose git rails ruby)
+plugins=(aws direnv docker docker-compose git pipenv rails ruby)
 source $ZSH/oh-my-zsh.sh
 
 export PATH="$PATH:$(yarn global bin)"
