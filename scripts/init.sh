@@ -80,6 +80,11 @@ if [ $? -ne 0 ]; then
   fi
 fi
 
+source "$HOME/scripts/mac-defaults.sh"
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 # Restore temporary git config changes
 config checkout .gitconfig
 
