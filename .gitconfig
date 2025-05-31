@@ -6,16 +6,16 @@
 [mergetool "diffmerge"]
   cmd = diffmerge --merge --result=\"`pwd`/$MERGED\" \"`pwd`/$LOCAL\" \"`pwd`/$BASE\" \"`pwd`/$REMOTE\"
 	trustExitCode = false
-[mergetool "vimdiff"]
+[mergetool "nvimdiff"]
   conflictstyle = diff3
 [mergetool]
   keepBackup = false
 [diff]
   #tool = diffmerge
-  tool = vimdiff
+  tool = nvimdiff
 [merge]
   #tool = diffmerge
-  tool = vimdiff
+  tool = nvimdiff
 [core]
   autocrlf = false
   safecrlf = false
