@@ -1,5 +1,4 @@
 return {
-  -- add pyright to lspconfig
   ---@class PluginLspOpts
   {
     "neovim/nvim-lspconfig",
