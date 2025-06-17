@@ -3,7 +3,7 @@
 # Ruby
 asdf plugin list | grep ruby &>/dev/null ||
   asdf plugin add ruby
-RUBY_VERSIONS=(3.0.6 3.1.2 3.1.4)
+RUBY_VERSIONS=(3.1.2 3.1.4 3.1.7)
 
 for version in $RUBY_VERSIONS; do
   asdf list ruby | grep $version &>/dev/null ||

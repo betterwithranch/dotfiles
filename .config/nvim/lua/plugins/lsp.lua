@@ -1,11 +1,17 @@
 return {
   -- add pyright to lspconfig
+  ---@class PluginLspOpts
   {
     "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
+    ---@type lspconfig.options
     opts = {
-      ---@type lspconfig.options
       autoformat = false,
+      servers = {
+        ruby_lsp = {
+          mason = false,
+          cmd = { vim.fn.expand("~/.asdf/shims/ruby-lsp") },
+        },
+      },
     },
   },
 }
