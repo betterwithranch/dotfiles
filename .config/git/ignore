@@ -8,3 +8,5 @@ tags
 .gitconfig.local
 scripts/pair.yml
 .config/yarn
+
+**/.claude/settings.local.json
