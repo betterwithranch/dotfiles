@@ -32,6 +32,9 @@ alias pshp="python manage.py shell_plus"
 
 # dotfile repo
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias brewdump='brew bundle dump --file ~/.Brewfile --force'
+
+alias dcw="docker compose watch"
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
 
