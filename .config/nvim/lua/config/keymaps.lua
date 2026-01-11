@@ -3,3 +3,38 @@
 -- Add any additional keymaps here
 
 vim.keymap.set("n", "<leader>m", ":!open https://www.lazyvim.org/keymaps<CR>", { desc = "Open LazyVim keymaps" })
+
+-- -- Copilot keymaps
+-- vim.keymap.set("i", "<M-l>", function()
+--   if require("copilot.suggestion").is_visible() then
+--     require("copilot.suggestion").accept()
+--   else
+--     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<M-l>", true, false, true), "n", false)
+--   end
+-- end, { desc = "Accept copilot suggestion" })
+--
+-- vim.keymap.set("i", "<M-w>", function()
+--   if require("copilot.suggestion").is_visible() then
+--     require("copilot.suggestion").accept_word()
+--   else
+--     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<M-w>", true, false, true), "n", false)
+--   end
+-- end, { desc = "Accept copilot word" })
+--
+-- vim.keymap.set("i", "<M-j>", function()
+--   if require("copilot.suggestion").is_visible() then
+--     require("copilot.suggestion").accept_line()
+--   else
+--     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<M-j>", true, false, true), "n", false)
+--   end
+-- end, { desc = "Accept copilot line" })
+--
+-- -- Toggle copilot
+-- vim.keymap.set("n", "<leader>cp", function()
+--   require("copilot.suggestion").toggle_auto_trigger()
+-- end, { desc = "Toggle Copilot auto trigger" })
+--
+-- -- Open copilot panel
+-- vim.keymap.set("n", "<leader>cP", function()
+--   require("copilot.panel").open()
+-- end, { desc = "Open Copilot panel" })
