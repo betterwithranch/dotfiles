@@ -91,6 +91,16 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+#export CLAUDE_CODE_USE_BEDROCK=1
+#export AWS_DEFAULT_REGION='us-west-2'
+#export ANTHROPIC_MODEL='default'
+#export ANTHROPIC_SMALL_FAST_MODEL='default'
+#
+# Using the 'source' command (more readable in scripts)
+if [[ -f ~/.zshrc.local ]]; then
+  source ~/.zshrc.local
+fi
+
 # Enable task autocompletion
 if type task &>/dev/null; then
     eval "$(task --completion zsh)"
