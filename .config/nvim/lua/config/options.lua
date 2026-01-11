@@ -5,5 +5,9 @@
 vim.g.mapleader = ","
 vim.opt.cindent = true
 
+vim.opt.updatetime = 300 -- Faster completion updates
+vim.opt.timeout = true
+vim.opt.timeoutlen = 300 -- Faster which-key
+
 vim.g.ai_cmp = true
 vim.opt.sessionoptions:append("globals")
