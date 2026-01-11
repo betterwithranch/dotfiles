@@ -4,3 +4,5 @@
 
 vim.g.mapleader = ","
 vim.opt.cindent = true
+
+vim.opt.sessionoptions:append("globals")
