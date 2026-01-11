@@ -1,3 +1,4 @@
+autoload -Uz compinit && compinit
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
@@ -86,3 +87,8 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# Enable task autocompletion
+if type task &>/dev/null; then
+    eval "$(task --completion zsh)"
+fi
