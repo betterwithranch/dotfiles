@@ -1,5 +1,5 @@
 autoload -Uz compinit && compinit
-export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="$HOME/.local/bin:/usr/local/opt/openssl/bin:$PATH"
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
@@ -56,6 +56,7 @@ plugins=(aws asdf direnv docker docker-compose git pipenv rails ruby)
 source $ZSH/oh-my-zsh.sh
 
 export PATH="$PATH:$(yarn global bin)"
+export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_installed
 
 autoload -U edit-command-line
 bindkey -M vicmd v edit-command-line
