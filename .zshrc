@@ -36,6 +36,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias brewdump='brew bundle dump --file ~/.Brewfile --force'
 
 alias dcw="docker compose watch"
+alias gbdm='gfa && git branch --merged main | grep -v "^\*\|main" | xargs -r git branch -d'
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
 

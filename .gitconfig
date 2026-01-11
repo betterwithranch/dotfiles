@@ -26,6 +26,7 @@
   cam = commit -am
 [push]
 	default = current
+	autoSetupRemote = true
 [user]
   email = "craig@theisraels.net"
 	name = Craig Israel
