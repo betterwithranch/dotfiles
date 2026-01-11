@@ -15,6 +15,7 @@ installOhMyZsh() {
 
 # For Apple Silicon
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
+export COMPOSE_BAKE=true
 
 alias cdk="npx cdk"
 alias mux=tmuxinator
