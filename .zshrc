@@ -92,3 +92,10 @@ function y() {
 if type task &>/dev/null; then
     eval "$(task --completion zsh)"
 fi
+
+# Auto-open tmux when ghostty opens
+if command -v tmux >/dev/null 2>&1; then
+  if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
+    tmux attach || tmux new
+  fi
+fi
