@@ -1,0 +1,68 @@
+{
+  "reservations": [
+    {
+      "id": 2,
+      "directory": "/Users/craigisrael/dev/sendcarrot-2",
+      "project": "sendcarrot",
+      "ports": {
+        "app": 3002,
+        "ssl": 8445,
+        "postgres": 5434,
+        "redis": 6381
+      },
+      "created_at": "2026-01-12T17:42:28Z"
+    },
+    {
+      "id": 3,
+      "directory": "/Users/craigisrael/dev/sanctum/otter-3",
+      "project": "otter",
+      "ports": {
+        "db": 5435,
+        "server": 8003,
+        "frontend": 3003,
+        "redis": 6382,
+        "localstack": 4569,
+        "webhook": 10002
+      },
+      "created_at": "2026-01-13T20:51:47Z"
+    },
+    {
+      "id": 5,
+      "directory": "/Users/craigisrael/dev/sanctum/otter-5",
+      "project": "otter",
+      "ports": {
+        "db": 5437,
+        "server": 8005,
+        "frontend": 3005,
+        "redis": 6384,
+        "localstack": 4571,
+        "webhook": 10004
+      },
+      "created_at": "2026-01-14T20:03:47Z"
+    },
+    {
+      "id": 6,
+      "directory": "/Users/craigisrael/dev/sendcarrot-6",
+      "project": "sendcarrot",
+      "ports": {
+        "app": 3006,
+        "ssl": 8449,
+        "postgres": 5438,
+        "redis": 6385
+      },
+      "created_at": "2026-01-15T20:26:00Z"
+    },
+    {
+      "id": 7,
+      "directory": "/Users/craigisrael/dev/sendcarrot-7",
+      "project": "sendcarrot",
+      "ports": {
+        "app": 3007,
+        "ssl": 8450,
+        "postgres": 5439,
+        "redis": 6386
+      },
+      "created_at": "2026-01-16T13:44:17Z"
+    }
+  ]
+}
