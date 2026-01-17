@@ -100,6 +100,35 @@ function y() {
 if [[ -f ~/.zshrc.local ]]; then
   source ~/.zshrc.local
 fi
+# Load .env.claude from git root for Claude Code MCP servers
+load_claude_env() {
+  local git_root
+  git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+  if [ -n "$git_root" ]; then
+    # Load .env.claude if it exists
+    if [ -f "$git_root/.env.claude" ]; then
+      set -a
+      source "$git_root/.env.claude"
+      set +a
+    fi
+    # Load .env.local for worktree-specific config (sendcarrot pattern)
+    if [ -f "$git_root/.env.local" ]; then
+      set -a
+      source "$git_root/.env.local"
+      set +a
+      # Calculate Chrome debug port: 9222 + WORKTREE_ID
+      if [ -n "$WORKTREE_ID" ]; then
+        export CHROME_DEBUG_PORT=$((9222 + WORKTREE_ID))
+      fi
+    fi
+  fi
+}
+
+# Auto-load .env.claude when starting claude
+claude() {
+  load_claude_env
+  command claude "$@"
+}
 
 # Enable task autocompletion
 if type task &>/dev/null; then
