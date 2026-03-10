@@ -43,6 +43,9 @@ alias brewdump='brew bundle dump --file ~/.Brewfile --force'
 
 alias dcw="docker compose watch"
 alias gbdm='gfa && git branch --merged main | grep -v "^\*\|main" | xargs -r git branch -d'
+alias lg=lazygit
+alias lazycfg='lg --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias lcg=lazycfg
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
 
@@ -104,16 +107,6 @@ load_claude_env() {
       set -a
       source "$git_root/.env.claude"
       set +a
-    fi
-    # Load .env.local for worktree-specific config (sendcarrot pattern)
-    if [ -f "$git_root/.env.local" ]; then
-      set -a
-      source "$git_root/.env.local"
-      set +a
-      # Calculate Chrome debug port: 9222 + WORKTREE_ID
-      if [ -n "$WORKTREE_ID" ]; then
-        export CHROME_DEBUG_PORT=$((9222 + WORKTREE_ID))
-      fi
     fi
   fi
 }
