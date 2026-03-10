@@ -1,6 +1,10 @@
-autoload -Uz compinit && compinit
+ulimit -n 65536
+
 export PATH="$HOME/.local/bin:/usr/local/opt/openssl/bin:$PATH"
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+
+# Adds lsp to path for claude
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -21,6 +25,7 @@ alias cdk="npx cdk"
 alias mux=tmuxinator
 alias dbm="bundle exec rails db:migrate"
 alias s="bundle exec rspec spec"
+alias pspec="bin/pspec"
 alias vim=nvim
 alias tmux="TERM=screen-256color-bce tmux"
 alias mux="tmuxinator"
@@ -40,17 +45,6 @@ alias dcw="docker compose watch"
 alias gbdm='gfa && git branch --merged main | grep -v "^\*\|main" | xargs -r git branch -d'
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
-
-# configure git completion in bash
-# if [ -f /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash ]; then
-#  source /usr/local/Cellar/git/$GIT_VERSION/etc/bash_completion.d/git-completion.bash 
-# fi
-
-# configure git completion in zsh
-#zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-#fpath=(~/.zsh $fpath)
-#autoload -Uz compinit && compinit
-
 
 # Zsh plugins
 plugins=(aws asdf direnv docker docker-compose git pipenv rails ruby)
