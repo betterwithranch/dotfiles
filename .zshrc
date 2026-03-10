@@ -78,6 +78,13 @@ dcleanup(){
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 
+# fzf Solarized Dark colors
+export FZF_DEFAULT_OPTS='
+  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75
+  --color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
+  --color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
+'
+
 # Yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -116,6 +123,7 @@ claude() {
   load_claude_env
   command claude "$@"
 }
+ENABLE_TOOL_SEARCH=true
 
 # Enable task autocompletion
 if type task &>/dev/null; then

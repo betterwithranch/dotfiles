@@ -1,3 +1,5 @@
+theme = Solarized Dark Higher Contrast
+
 # keybind = ctrl+u>'=new_split:right
 # keybind = ctrl+u>shift+5=new_split:down
 keybind = ctrl+u>f=toggle_fullscreen
