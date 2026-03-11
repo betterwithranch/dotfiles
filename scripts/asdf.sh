@@ -1,31 +1,22 @@
 #!/usr/bin/env zsh
 
-# Ruby
-asdf plugin list | grep ruby &>/dev/null ||
-  asdf plugin add ruby
-RUBY_VERSIONS=(3.1.2 3.1.4 3.1.7)
+echo
+echo
+echo "asdf languages"
+echo
+echo
 
-for version in $RUBY_VERSIONS; do
-  asdf list ruby | grep $version &>/dev/null ||
-    asdf install ruby $version
+PLUGINS=(ruby nodejs python terraform)
+
+for plugin in $PLUGINS; do
+  asdf plugin list | grep "$plugin" &>/dev/null ||
+    asdf plugin add "$plugin"
 done
 
-# Node
-asdf plugin list | grep nodejs &>/dev/null ||
-  asdf plugin add nodejs
-NODE_VERSIONS=(20.12.2)
+# Install versions from ~/.tool-versions
+asdf install
 
-for version in $NODE_VERSIONS; do
-  asdf list nodejs | grep $version &>/dev/null ||
-    asdf install nodejs $version
-done
-
-# Python
-asdf plugin list | grep python &>/dev/null ||
-  asdf plugin add python
-PYTHON_VERSIONS=(3.11.10)
-
-for version in $PYTHON_VERSIONS; do
-  asdf list python | grep $version &>/dev/null ||
-    asdf install python $version
-done
+if [ $? -ne 0 ]; then
+  echo "Error installing asdf languages. Exiting ..."
+  exit 1
+fi
