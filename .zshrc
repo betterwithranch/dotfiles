@@ -44,7 +44,7 @@ alias brewdump='brew bundle dump --file ~/.Brewfile --force'
 alias dcw="docker compose watch"
 alias gbdm='gfa && git branch --merged main | grep -v "^\*\|main" | xargs -r git branch -d'
 alias lg=lazygit
-alias lazycfg='lg --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias lazycfg='GIT_DIR=$HOME/.dotfiles GIT_WORK_TREE=$HOME GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=status.showUntrackedFiles GIT_CONFIG_VALUE_0=all lg'
 alias lcg=lazycfg
 
 GIT_VERSION=`git --version | cut -d' ' -f3-`
