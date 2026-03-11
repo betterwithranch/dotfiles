@@ -12,9 +12,6 @@ function config {
   /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
 }
 
-# Force https for dotfiles repo
-git config --global url."https://github.com/betterwithranch/dotfiles.git".insteadOf https://github.com/betterwithranch/dotfiles.git
-
 [ -d ~/.dotfiles ] && git -C $HOME/.dotfiles rev-parse
 
 if [ $? -ne 0 ]; then
@@ -76,22 +73,10 @@ else
   fi
 fi
 
-git config --global --remove-section url."git@github.com:"
-
-if [ $? -ne 0 ]; then
-  echo "Error checking out dotfiles"
-  exit 1
-fi
-
 config config status.showUntrackedFiles no
 if [ $? -ne 0 ]; then
   echo "Error updating showUntrackedFiles config"
   exit 1
 fi
 
-if [ $? = 0 ]; then
-  echo "Checkout completed successfully"
-else
-  echo "Error removing https insteadOf"
-  exit 1
-fi
+echo "Checkout completed successfully"
