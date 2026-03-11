@@ -8,7 +8,7 @@ echo
 
 if [ ! -f ~/.ssh/id_ed25519 ]; then
   echo "Creating ssh key"
-  ssh-keygen -t ed25519 -C "craig@theisraels.net" -N '' -f ~/.ssh/id_ed25519
+  ssh-keygen -t ed25519 -C "$(git config user.email)" -N '' -f ~/.ssh/id_ed25519
 else
   echo "ssh key exists"
 fi

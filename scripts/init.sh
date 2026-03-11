@@ -4,10 +4,17 @@ grep "auth\s*sufficient\s*pam_tid.so" /etc/pam.d/sudo_local
 
 if [ $? -ne 0 ]; then
   echo "Setting up touch id for sudo commands"
-  sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee /etc/pam.d/sudo_local
+  if [ -f /etc/pam.d/sudo_local.template ] && grep -q "pam_tid.so" /etc/pam.d/sudo_local.template; then
+    if [ -f /etc/pam.d/sudo_local ]; then
+      sudo cp /etc/pam.d/sudo_local "/etc/pam.d/sudo_local.bak.$(date +%s)"
+    fi
+    sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee /etc/pam.d/sudo_local
 
-  if [ $? -ne 0 ]; then
-    echo "Error updating sudo_local. Exiting ..."
+    if [ $? -ne 0 ]; then
+      echo "Error updating sudo_local. Exiting ..."
+    fi
+  else
+    echo "Warning: sudo_local.template not found or missing pam_tid.so. Skipping Touch ID setup."
   fi
 fi
 
@@ -115,7 +122,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Install ssh key on github
-source $HOME/scripts/github.sh
+source "$HOME/scripts/github.sh"
 
 echo
 echo

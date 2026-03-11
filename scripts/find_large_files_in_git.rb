@@ -8,10 +8,10 @@ treshold = (treshold || 0.1).to_f * Megabyte
 
 big_files = {}
 
-IO.popen("git rev-list #{head}", 'r') do |rev_list|
+IO.popen(["git", "rev-list", head], 'r') do |rev_list|
     rev_list.each_line do |commit|
           commit.chomp!
-          trees =  `git ls-tree -zrl #{commit}`.force_encoding('UTF-8')
+          trees = IO.popen(["git", "ls-tree", "-zrl", commit], &:read).force_encoding('UTF-8')
             if !trees.valid_encoding?
               trees = trees.encode('utf-8', 'binary', :invalid => :replace, :undef => :replace)
             end
@@ -24,6 +24,6 @@ IO.popen("git rev-list #{head}", 'r') do |rev_list|
 end
 
 big_files.each do |sha, (path, size, commit)|
-    where = `git show -s #{commit} --format='%h: %cr'`.chomp
+    where = IO.popen(["git", "show", "-s", commit, "--format=%h: %cr"], &:read).chomp
       puts "%4.1fM\t%s\t(%s)" % [size.to_f / Megabyte, path, where]
 end

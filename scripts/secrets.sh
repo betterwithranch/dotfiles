@@ -15,14 +15,14 @@ if [ $? -ne 0 ]; then
 fi
 
 # Inject secrets from .tpl files
-TEMPLATES=($(find "$HOME" -name "*.tpl" -path "*/.*" -maxdepth 3 2>/dev/null))
+TEMPLATES=("${(@f)$(find "$HOME" -name "*.tpl" -path "*/.*" -maxdepth 3 2>/dev/null)}")
 
 if [ ${#TEMPLATES[@]} -eq 0 ]; then
   echo "No secret templates found"
   return 0
 fi
 
-for tpl in $TEMPLATES; do
+for tpl in "${TEMPLATES[@]}"; do
   target="${tpl%.tpl}"
   echo "Injecting secrets into $target"
   op inject -i "$tpl" -o "$target"

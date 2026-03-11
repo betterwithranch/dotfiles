@@ -32,9 +32,9 @@ if [ $? -ne 0 ]; then
     echo "Moving existing dotfiles to ~/.dotfiles-backup"
     FILES=$(config checkout 2>&1 | egrep "^\s+" | awk {'print $1'})
 
-    for f in $FILES; do
-      mkdir -p $(dirname $HOME/.dotfiles-backup/$f) &&
-        mv $HOME/$f $HOME/.dotfiles-backup/$f
+    for f in ${(f)FILES}; do
+      mkdir -p "$(dirname "$HOME/.dotfiles-backup/$f")" &&
+        mv "$HOME/$f" "$HOME/.dotfiles-backup/$f"
     done
   fi
 

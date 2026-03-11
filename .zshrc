@@ -51,7 +51,7 @@ GIT_VERSION=`git --version | cut -d' ' -f3-`
 
 # Zsh plugins
 plugins=(aws asdf direnv docker docker-compose git pipenv rails ruby)
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 export PATH="$PATH:$(yarn global bin)"
 export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_installed
@@ -108,13 +108,15 @@ fi
 load_claude_env() {
   local git_root
   git_root=$(git rev-parse --show-toplevel 2>/dev/null)
-  if [ -n "$git_root" ]; then
-    # Load .env.claude if it exists
-    if [ -f "$git_root/.env.claude" ]; then
-      set -a
-      source "$git_root/.env.claude"
-      set +a
+  if [ -n "$git_root" ] && [ -f "$git_root/.env.claude" ]; then
+    # Reject .env.claude files that set dangerous variables
+    if grep -qiE '^\s*(export\s+)?(PATH|LD_PRELOAD|LD_LIBRARY_PATH|DYLD_|HOME|SHELL|USER)=' "$git_root/.env.claude"; then
+      echo "Warning: $git_root/.env.claude contains unsafe variable assignments. Skipping."
+      return 1
     fi
+    set -a
+    source "$git_root/.env.claude"
+    set +a
   fi
 }
 
