@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(gh pr check:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(tree:*)",
+      "Bash(go test:*)",
+      "Bash(go build:*)",
+      "Bash(go fmt:*)",
+      "Bash(go get:*)",
+      "Bash(go vet:*)",
+      "Bash(git grep:*)",
+      "Bash(git log:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git show:*)",
+      "Bash(git status:*)",
+      "Bash(git fetch:*)",
+      "Bash(git -C * show *)",
+      "Bash(git -C * log *)",
+      "Bash(git -C * diff *)",
+      "Bash(docker logs:*)",
+      "Bash(docker compose:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker stats:*)",
+      "Bash(task list:*)",
+      "Bash(task backend:test_*:*)",
+      "Bash(~/.claude/skills/test-troubleshooter/scripts/batch_test_runner.py:*)",
+      "Bash(sed -n '*' *)",
+      "Bash(sort:*)",
+      "Bash(tr:*)",
+      "Bash(uniq:*)",
+      "Bash(wc:*)",
+      "Bash(worktree version:*)",
+      "Bash(worktree list:*)",
+      "Glob(~/.claude/plans/*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Read(~/.claude/settings.json)",
+      "Read(~/.claude/plans/*)",
+      "Read(~/.claude/*)",
+      "Read(/tmp/*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "mcp__chrome-devtools__click",
+      "mcp__chrome-devtools__close_page",
+      "mcp__chrome-devtools__drag",
+      "mcp__chrome-devtools__emulate",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__fill",
+      "mcp__chrome-devtools__fill_form",
+      "mcp__chrome-devtools__get_console_message",
+      "mcp__chrome-devtools__get_network_request",
+      "mcp__chrome-devtools__handle_dialog",
+      "mcp__chrome-devtools__hover",
+      "mcp__chrome-devtools__list_console_messages",
+      "mcp__chrome-devtools__list_network_requests",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__performance_analyze_insight",
+      "mcp__chrome-devtools__performance_start_trace",
+      "mcp__chrome-devtools__performance_stop_trace",
+      "mcp__chrome-devtools__press_key",
+      "mcp__chrome-devtools__resize_page",
+      "mcp__chrome-devtools__select_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__upload_file",
+      "mcp__chrome-devtools__wait_for",
+      "mcp__smartbear__bugsnag_get_event_details_from_dashboard_url",
+      "Skill(frontend-design:*)",
+      "mcp__shortcut__stories-create",
+      "mcp__shortcut__stories-update",
+      "mcp__shortcut__stories-search",
+      "mcp__shortcut__stories-get-by-id",
+      "mcp__shortcut__teams-list",
+      "mcp__shortcut__workflows-list",
+      "mcp__shortcut__workflows-get-default"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/check-chrome-debug-on-start.py"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/cleanup-session-state.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-claude-question.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/rename-plan-after-exit.py"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__chrome-devtools__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-chrome-devtools-error.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/log-skill-usage.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/hooks/statusline.sh"
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "example-skills@anthropic-agent-skills": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true
+  },
+  "autoUpdatesChannel": "latest",
+  "feedbackSurveyState": {
+    "lastShownTime": 1754082086462
+  }
+}
