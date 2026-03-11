@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+
+if [ -z "$1" ]; then
+  echo "Usage: create_project_files <project-path>"
+  echo "Example: create_project_files sanctum/otter"
+  exit 1
+fi
+
+PROJECT="$1"
+TEMPLATE_DIR="$HOME/.project-templates/$PROJECT"
+TARGET_DIR="$HOME/dev/$PROJECT"
+
+if [ ! -d "$TEMPLATE_DIR" ]; then
+  echo "No templates found at $TEMPLATE_DIR"
+  exit 1
+fi
+
+if [ ! -d "$TARGET_DIR" ]; then
+  echo "Project directory not found at $TARGET_DIR"
+  exit 1
+fi
+
+OP_SIGNED_IN=false
+
+find "$TEMPLATE_DIR" -type f | while read -r src; do
+  relative="${src#$TEMPLATE_DIR/}"
+
+  if [[ "$src" == *.tpl ]]; then
+    target="$TARGET_DIR/${relative%.tpl}"
+
+    if [ "$OP_SIGNED_IN" = false ]; then
+      op account list &>/dev/null
+      if [ $? -ne 0 ]; then
+        echo "Please sign in to 1Password CLI first: eval \$(op signin)"
+        exit 1
+      fi
+      OP_SIGNED_IN=true
+    fi
+
+    mkdir -p "$(dirname "$target")"
+    echo "Injecting $relative -> $target"
+    op inject -i "$src" -o "$target"
+
+    if [ $? -ne 0 ]; then
+      echo "Error injecting $src"
+      exit 1
+    fi
+  else
+    target="$TARGET_DIR/$relative"
+    mkdir -p "$(dirname "$target")"
+    echo "Copying $relative -> $target"
+    cp "$src" "$target"
+  fi
+done
+
+echo "Done"
