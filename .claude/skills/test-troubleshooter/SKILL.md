@@ -20,7 +20,7 @@ Investigate flaky or failing tests by running them in batches with full output c
 ### 1. Run the Batch Test Runner
 
 ```bash
-python3 /Users/craigisrael/.claude/skills/test-troubleshooter/scripts/batch_test_runner.py \
+~/.claude/skills/test-troubleshooter/scripts/batch_test_runner.py \
   --command "task backend:test_eval -- -k 'test_name' -v" \
   --runs 10 \
   --output /tmp/test_results
@@ -53,7 +53,7 @@ After making fixes, run the batch again to verify improvement. Target: 100% pass
 
 ```bash
 # Investigate a flaky eval test
-python3 /Users/craigisrael/.claude/skills/test-troubleshooter/scripts/batch_test_runner.py \
+~/.claude/skills/test-troubleshooter/scripts/batch_test_runner.py \
   --command "task backend:test_eval -- -k 'test_clarification_response' -v" \
   --runs 20 \
   --output /tmp/clarification_test
