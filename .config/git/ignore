@@ -10,3 +10,4 @@ scripts/pair.yml
 .config/yarn
 
 **/.claude/settings.local.json
+**/.claude/image-cache
