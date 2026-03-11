@@ -6,17 +6,17 @@ echo "Github"
 echo
 echo
 
-if [ ! -f ~/.ssh/id_rsa ]; then
+if [ ! -f ~/.ssh/id_ed25519 ]; then
   echo "Creating ssh key"
-  ssh-keygen -t ed25519 -C "craig@theisraels.net" -N '' -f ~/.ssh/id_rsa
+  ssh-keygen -t ed25519 -C "craig@theisraels.net" -N '' -f ~/.ssh/id_ed25519
 else
   echo "ssh key exists"
 fi
 
-grep id_rsa.pub ~/.ssh/gh_keys &>/dev/null || gh auth status | grep "Logged in to github.com"
+grep id_ed25519.pub ~/.ssh/gh_keys &>/dev/null || gh auth status | grep "Logged in to github.com"
 
 if [ $? -ne 0 ]; then
   gh auth login -h github.com -s admin:public_key
-  gh ssh-key add ~/.ssh/id_rsa.pub
-  grep id_rsa.pub ~/.ssh/gh_keys &>/dev/null | echo id_rsa.pub >> ~/.ssh/gh_keys
+  gh ssh-key add ~/.ssh/id_ed25519.pub
+  grep -q id_ed25519.pub ~/.ssh/gh_keys 2>/dev/null || echo id_ed25519.pub >> ~/.ssh/gh_keys
 fi
