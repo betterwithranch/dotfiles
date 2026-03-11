@@ -40,8 +40,6 @@ function config {
   /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
 }
 
-SCRIPT_DIR=$(config rev-parse --show-toplevel)/scripts
-
 # Install oh-my-zsh
 source "$HOME/scripts/oh-my-zsh.sh"
 if [ $? -ne 0 ]; then
@@ -56,6 +54,24 @@ fi
 
 # Install homebrew
 source "$HOME/scripts/homebrew.sh"
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+# Symlink Alfred workflows
+ALFRED_WORKFLOW_DIR="$HOME/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows"
+mkdir -p "$ALFRED_WORKFLOW_DIR"
+for workflow in "$HOME/.alfred/workflows"/*/; do
+    workflow_name=$(basename "$workflow")
+    target="$ALFRED_WORKFLOW_DIR/$workflow_name"
+    if [ ! -e "$target" ]; then
+      echo "Linking Alfred workflow: $workflow_name"
+      ln -s "$workflow" "$target"
+    fi
+done
+
+# Install Claude Code
+curl -fsSL https://claude.ai/install.sh | bash
 if [ $? -ne 0 ]; then
   exit 1
 fi
@@ -85,8 +101,18 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Install neovim plugins
+echo "Installing neovim plugins"
+nvim --headless "+Lazy! sync" +qa
+
 # Restore temporary git config changes
 config checkout .gitconfig
+
+# Inject secrets from 1Password
+source "$HOME/scripts/secrets.sh"
+if [ $? -ne 0 ]; then
+  exit 1
+fi
 
 # Install ssh key on github
 source $HOME/scripts/github.sh
