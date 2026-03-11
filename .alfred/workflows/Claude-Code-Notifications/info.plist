@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.sendcarrot.claude-notify</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>0E8A1B2C-3D4E-5F6A-7B8C-9D0E1F2A3B4C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoaliased</key>
+				<false/>
+			</dict>
+		</array>
+		<key>2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>3C4D5E6F-7A8B-9C0D-1E2F-3A4B5C6D7E8F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoaliased</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Claude Code</string>
+	<key>description</key>
+	<string>Notifications for Claude Code with click-to-focus</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Claude Code Notifications</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>externaltriggerid</key>
+				<string>complete</string>
+				<key>passinputasargument</key>
+				<true/>
+				<key>passvariables</key>
+				<true/>
+				<key>workflowonly</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>0E8A1B2C-3D4E-5F6A-7B8C-9D0E1F2A3B4C</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>sound</key>
+				<string>Glass</string>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Task finished</string>
+				<key>title</key>
+				<string>Claude Complete</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>externaltriggerid</key>
+				<string>question</string>
+				<key>passinputasargument</key>
+				<true/>
+				<key>passvariables</key>
+				<true/>
+				<key>workflowonly</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>sound</key>
+				<string>Sosumi</string>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>Question waiting for you</string>
+				<key>title</key>
+				<string>Claude Needs Input</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>3C4D5E6F-7A8B-9C0D-1E2F-3A4B5C6D7E8F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Claude Code Notifications
+
+Provides desktop notifications when:
+- Claude finishes responding (subtle Glass sound)
+- Claude needs your input (attention Sosumi sound)
+
+Click notifications to focus the correct Ghostty window and tmux pane.
+
+Triggered by Claude Code hooks in ~/.claude/hooks/</string>
+	<key>uidata</key>
+	<dict>
+		<key>0E8A1B2C-3D4E-5F6A-7B8C-9D0E1F2A3B4C</key>
+		<dict>
+			<key>xpos</key>
+			<integer>100</integer>
+			<key>ypos</key>
+			<integer>50</integer>
+		</dict>
+		<key>1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>350</integer>
+			<key>ypos</key>
+			<integer>50</integer>
+		</dict>
+		<key>2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>100</integer>
+			<key>ypos</key>
+			<integer>200</integer>
+		</dict>
+		<key>3C4D5E6F-7A8B-9C0D-1E2F-3A4B5C6D7E8F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>350</integer>
+			<key>ypos</key>
+			<integer>200</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
