@@ -6,25 +6,24 @@ echo "Tmux"
 echo
 echo
 
-CATPPUCCIN_PATH=$HOME/.config/tmux/plugins/catppuccin
-mkdir -p $CATPPUCCIN_PATH
+TPM_PATH=$HOME/.tmux/plugins/tpm
 
-PLUGIN_PATH=$CATPPUCCIN_PATH/tmux
+if [ ! -d "$TPM_PATH" ]; then
+  echo "Installing TPM (tmux plugin manager)"
+  git clone https://github.com/tmux-plugins/tpm "$TPM_PATH"
 
-if [ ! -d $PLUGIN_PATH ]; then
-  echo "Installing catppuccin plugin"
-  git clone -b v2.1.3 https://github.com/catppuccin/tmux.git $PLUGIN_PATH
-else
-  pushd $PLUGIN_PATH
-  echo "Checking out catppuccin plugin"
-  git checkout
-
-  CHECKOUT_RESULT=$?
-
-  popd
-
-  if [ $CHECKOUT_RESULT -ne 0 ]; then
-    echo "Error checking out tmuz catppuccin plugin"
+  if [ $? -ne 0 ]; then
+    echo "Error installing TPM. Exiting ..."
     exit 1
   fi
+else
+  echo "TPM already installed"
+fi
+
+echo "Installing tmux plugins via TPM"
+"$TPM_PATH/bin/install_plugins"
+
+if [ $? -ne 0 ]; then
+  echo "Error installing tmux plugins. Exiting ..."
+  exit 1
 fi
