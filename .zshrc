@@ -6,6 +6,13 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 # Adds lsp to path for claude
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
+# Zsh history settings
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_BUNDLE_FILE=~/Brewfile
@@ -27,6 +34,11 @@ alias dbm="bundle exec rails db:migrate"
 alias s="bundle exec rspec spec"
 alias pspec="bin/pspec"
 alias vim=nvim
+alias cat="bat"
+alias ls="eza"
+alias ll="eza -l"
+alias la="eza -la"
+alias tree="eza --tree"
 alias tmux="TERM=screen-256color-bce tmux"
 alias mux="tmuxinator"
 alias rspec="bundle exec rspec"
@@ -56,6 +68,9 @@ source "$ZSH/oh-my-zsh.sh"
 export PATH="$PATH:$(yarn global bin)"
 export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_installed
 
+# Zoxide - smart cd
+eval "$(zoxide init zsh)"
+
 autoload -U edit-command-line
 bindkey -M vicmd v edit-command-line
 set -o vi
@@ -77,6 +92,9 @@ dcleanup(){
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+# fzf shell integration (Ctrl+R, Ctrl+T, Alt+C, **<tab>)
+source <(fzf --zsh)
 
 # fzf Solarized Dark colors
 export FZF_DEFAULT_OPTS='
