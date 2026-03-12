@@ -16,6 +16,7 @@
 [diff]
   #tool = diffmerge
   tool = nvimdiff
+  algorithm = histogram
 [merge]
   #tool = diffmerge
   tool = diffview
@@ -30,6 +31,14 @@
   s = status
   co = checkout
   cam = commit -am
+[rerere]
+	enabled = true
+[fetch]
+	prune = true
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
 [push]
 	default = current
 	autoSetupRemote = true
@@ -46,5 +55,7 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com
 
+[branch]
+	sort = -committerdate
 [init]
 	defaultBranch = main

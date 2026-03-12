@@ -11,3 +11,18 @@ scripts/pair.yml
 
 **/.claude/settings.local.json
 **/.claude/image-cache
+
+# Environment files
+.env
+.env.local
+.env*.local
+
+# IDE directories
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# direnv cache
+.direnv/
