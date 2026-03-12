@@ -7,11 +7,9 @@ echo
 echo
 
 # Check if signed in
-op account list &>/dev/null
-
-if [ $? -ne 0 ]; then
+if ! op account list &>/dev/null; then
   echo "Please sign in to 1Password CLI first: eval \$(op signin)"
-  exit 1
+  return 1
 fi
 
 # Inject secrets from .tpl files
@@ -25,11 +23,9 @@ fi
 for tpl in "${TEMPLATES[@]}"; do
   target="${tpl%.tpl}"
   echo "Injecting secrets into $target"
-  op inject -i "$tpl" -o "$target"
-
-  if [ $? -ne 0 ]; then
+  if ! op inject -i "$tpl" -o "$target"; then
     echo "Error injecting $tpl"
-    exit 1
+    return 1
   fi
 done
 

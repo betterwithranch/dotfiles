@@ -15,7 +15,6 @@ setopt INC_APPEND_HISTORY
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_NO_AUTO_UPDATE=1
-export HOMEBREW_BUNDLE_FILE=~/Brewfile
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
@@ -24,12 +23,9 @@ installOhMyZsh() {
 }
 
 
-# For Apple Silicon
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export COMPOSE_BAKE=true
 
 alias cdk="npx cdk"
-alias mux=tmuxinator
 alias dbm="bundle exec rails db:migrate"
 alias s="bundle exec rspec spec"
 alias pspec="bin/pspec"
@@ -51,15 +47,13 @@ alias pshp="python manage.py shell_plus"
 
 # dotfile repo
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias brewdump='brew bundle dump --file ~/.Brewfile --force'
+alias brewdump='brew bundle dump --force'
 
 alias dcw="docker compose watch"
 alias gbdm='gfa && git branch --merged main | grep -v "^\*\|main" | xargs -r git branch -d'
 alias lg=lazygit
 alias lazycfg='GIT_DIR=$HOME/.dotfiles GIT_WORK_TREE=$HOME GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=status.showUntrackedFiles GIT_CONFIG_VALUE_0=all lg'
 alias lcg=lazycfg
-
-GIT_VERSION=`git --version | cut -d' ' -f3-`
 
 # Zsh plugins
 plugins=(aws asdf direnv docker docker-compose git pipenv rails ruby)

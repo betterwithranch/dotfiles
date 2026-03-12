@@ -13,9 +13,7 @@ else
   echo "ssh key exists"
 fi
 
-grep id_ed25519.pub ~/.ssh/gh_keys &>/dev/null || gh auth status | grep "Logged in to github.com"
-
-if [ $? -ne 0 ]; then
+if ! grep -q id_ed25519.pub ~/.ssh/gh_keys 2>/dev/null && ! gh auth status 2>&1 | grep -q "Logged in to github.com"; then
   gh auth login -h github.com -s admin:public_key
   gh ssh-key add ~/.ssh/id_ed25519.pub
   grep -q id_ed25519.pub ~/.ssh/gh_keys 2>/dev/null || echo id_ed25519.pub >> ~/.ssh/gh_keys

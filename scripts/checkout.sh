@@ -9,24 +9,37 @@ echo
 # define config alias locally since the dotfiles
 # aren't installed on the system yet
 function config {
-  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
+  /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" "$@"
 }
 
-[ -d ~/.dotfiles ] && git -C $HOME/.dotfiles rev-parse
-
-if [ $? -ne 0 ]; then
-
-  echo "Cloning dotfiles repo ..."
-  git clone --bare https://github.com/betterwithranch/dotfiles.git $HOME/.dotfiles
-
-  if [ $? -ne 0 ]; then
-    echo "Could not clone repo. Exiting ..."
-    exit 1
+if [ -d ~/.dotfiles ] && git -C "$HOME/.dotfiles" rev-parse 2>/dev/null; then
+  # Repo exists — pull latest
+  if ! config add -u -v || ! config commit -v --no-edit -m "temp commit for git pull"; then
+    echo "Error adding/committing .gitconfig temporarily"
+    return 1 2>/dev/null || exit 1
   fi
 
-  config checkout
+  echo "pulling latest from repo"
+  if ! config pull --rebase; then
+    echo "Error pulling latest dotfiles"
+    return 1 2>/dev/null || exit 1
+  fi
 
-  if [ $? = 0 ]; then
+  # Reset temporary commit
+  echo "resetting commit"
+  if ! config reset --soft HEAD^ || ! config restore --staged .gitconfig; then
+    echo "Error committing temp .gitconfig"
+    return 1 2>/dev/null || exit 1
+  fi
+else
+  # Fresh clone
+  echo "Cloning dotfiles repo ..."
+  if ! git clone --bare https://github.com/betterwithranch/dotfiles.git "$HOME/.dotfiles"; then
+    echo "Could not clone repo. Exiting ..."
+    return 1 2>/dev/null || exit 1
+  fi
+
+  if config checkout; then
     echo "Checked out dotfiles from git@github.com:betterwithranch/dotfiles.git"
   else
     echo "Moving existing dotfiles to ~/.dotfiles-backup"
@@ -39,44 +52,15 @@ if [ $? -ne 0 ]; then
   fi
 
   # checkout dotfiles from repo
-  config checkout
-
-  if [ $? -ne 0 ]; then
+  if ! config checkout; then
     echo "Error checking out dotfiles"
-    exit 1
-  fi
-else
-  config add -u -v && \
-    config commit -v --no-edit -m "temp commit for git pull"
-
-  if [ $? -ne 0 ]; then
-    echo "Error adding/committing .gitconfig temporarily"
-    exit 1
-  fi
-
-  echo "pulling latest from repo"
-  config pull --rebase
-
-  if [ $? -ne 0 ]; then
-    echo "Error pulling latest dotfiles"
-    exit 1
-  fi
-
-  # Reset temporary commit
-  echo "resetting commit"
-  config reset --soft HEAD^ && \
-    config restore --staged .gitconfig
-
-  if [ $? -ne 0 ]; then
-    echo "Error committing temp .gitconfig"
-    exit 1
+    return 1 2>/dev/null || exit 1
   fi
 fi
 
-config config status.showUntrackedFiles no
-if [ $? -ne 0 ]; then
+if ! config config status.showUntrackedFiles no; then
   echo "Error updating showUntrackedFiles config"
-  exit 1
+  return 1 2>/dev/null || exit 1
 fi
 
 echo "Checkout completed successfully"

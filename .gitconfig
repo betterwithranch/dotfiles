@@ -1,11 +1,6 @@
-[url "git@github.com:"]
-  insteadOf = https://github.com/
 [color]
 	ui = true
   diff = true
-[mergetool "diffmerge"]
-  cmd = diffmerge --merge --result=\"`pwd`/$MERGED\" \"`pwd`/$LOCAL\" \"`pwd`/$BASE\" \"`pwd`/$REMOTE\"
-	trustExitCode = false
 [mergetool "nvimdiff"]
   conflictstyle = diff3
 [mergetool "diffview"]
@@ -14,11 +9,9 @@
   keepBackup = false
   prompt = false
 [diff]
-  #tool = diffmerge
   tool = nvimdiff
   algorithm = histogram
 [merge]
-  #tool = diffmerge
   tool = diffview
   conflictStyle = zdiff3
 [core]

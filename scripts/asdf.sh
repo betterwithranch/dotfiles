@@ -14,9 +14,7 @@ for plugin in $PLUGINS; do
 done
 
 # Install versions from ~/.tool-versions
-asdf install
-
-if [ $? -ne 0 ]; then
+if ! asdf install; then
   echo "Error installing asdf languages. Exiting ..."
-  exit 1
+  return 1
 fi

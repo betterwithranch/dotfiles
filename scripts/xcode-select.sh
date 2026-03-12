@@ -6,19 +6,15 @@ echo "Xcode command line tools"
 echo
 echo
 
-xcode-select -p 1>/dev/null
-
-if [ $? -ne 0 ]; then
+if ! xcode-select -p 1>/dev/null; then
   echo "Xcode command line tools are not installed. Installing ..."
 
   touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
   PROD=$(softwareupdate -l | grep "\*.*Command Line" | tail -n 1 | sed 's/^[^C]* //')
 
-  softwareupdate -i "$PROD" --verbose
-
-  if [ $? -ne 0 ]; then
+  if ! softwareupdate -i "$PROD" --verbose; then
     echo "Error installing command line tools. Exiting ..."
-    exit 1
+    return 1 2>/dev/null || exit 1
   fi
 fi
 
