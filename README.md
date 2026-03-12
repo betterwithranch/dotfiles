@@ -1,24 +1,157 @@
-# Installation
+# Dotfiles
 
-```
+Personal dotfiles for macOS, managed as a [bare git repository](https://www.atlassian.com/git/tutorials/dotfiles) with the work tree at `$HOME`.
+
+## Quick Start
+
+Run this on a fresh Mac to bootstrap everything:
+
+```sh
 curl https://raw.githubusercontent.com/betterwithranch/dotfiles/main/scripts/init.sh | zsh
 ```
 
+This single command will:
 
-# Usage
+1. Enable Touch ID for `sudo`
+2. Install Xcode Command Line Tools
+3. Clone the dotfiles bare repo to `~/.dotfiles`
+4. Install [Oh My Zsh](https://ohmyz.sh/)
+5. Install [TPM](https://github.com/tmux-plugins/tpm) and tmux plugins
+6. Install [Homebrew](https://brew.sh/) and all packages from the Brewfile
+7. Link [Alfred](https://www.alfredapp.com/) workflows
+8. Install [Claude Code](https://claude.ai/claude-code)
+9. Install language runtimes via [asdf](https://asdf-vm.com/)
+10. Configure [pam-reattach](https://github.com/fabianishere/pam-reattach) (Touch ID in tmux)
+11. Apply macOS system preferences
+12. Install [Neovim](https://neovim.io/) plugins
+13. Inject secrets from [1Password CLI](https://developer.1password.com/docs/cli/)
+14. Generate an SSH key and register it with GitHub
 
-Script installs a `config` alias and a bare repo
+## Managing Dotfiles
 
-To add a file:
+The repo uses a bare git repository pattern. A `config` alias replaces `git` for dotfiles operations:
 
-`config add <filename>`
+```sh
+# The alias (defined in .zshrc)
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+# Track a new file
+config add ~/.some-config-file
 
-# Secrets
+# Commit and push
+config commit -m "add some-config-file"
+config push
+
+# Check status (untracked files are hidden by default)
+config status
+
+# Use lazygit for the dotfiles repo
+lazycfg
+```
+
+## What's Included
+
+### Shell (Zsh)
+
+- [Oh My Zsh](https://ohmyz.sh/) with the `robbyrussell` theme
+- Plugins: `aws`, `asdf`, `direnv`, `docker`, `docker-compose`, `git`, `pipenv`, `rails`, `ruby`
+- Vi mode (`set -o vi`) with vi keybindings in [readline](https://tiswww.case.edu/php/chet/readline/rltop.html) (`.inputrc`) and [editline](https://man.freebsd.org/cgi/man.cgi?editrc(5)) (`.editrc`)
+- Deduped, shared history across sessions
+- [fzf](https://github.com/junegunn/fzf) shell integration (Ctrl+R, Ctrl+T, Alt+C) with Solarized Dark colors
+- [zoxide](https://github.com/ajdiber/zoxide) (`z`) for smart directory jumping
+- [Yazi](https://yazi-rs.github.io/) wrapper function (`y`) that syncs the working directory on exit
+- Auto-attach to [tmux](https://github.com/tmux/tmux) when Ghostty opens
+
+### Terminal & Multiplexer
+
+- [Ghostty](https://ghostty.org/) terminal with Solarized Dark Higher Contrast theme and [Hack Nerd Font](https://www.nerdfonts.com/)
+- [tmux](https://github.com/tmux/tmux) with `C-u` prefix, vi copy mode, mouse support, and hjkl pane navigation
+- [TPM](https://github.com/tmux-plugins/tpm) plugins:
+  - [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) + [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) for session persistence (auto-save every 5 min, auto-restore on start)
+  - [tmux-colors-solarized](https://github.com/seebi/tmux-colors-solarized) for consistent theming
+- [tmuxinator](https://github.com/tmuxinator/tmuxinator) (`mux`) for project layouts
+
+### Editor (Neovim)
+
+- [LazyVim](https://www.lazyvim.org/) distribution with catppuccin-frappe colorscheme
+- Leader key: `,`
+- Plugins for Rails, Treesitter, Diffview, Yazi, auto-session, render-markdown, and more
+- [Copilot](https://github.com/features/copilot) and [CodeCompanion](https://github.com/olimorris/codecompanion.nvim) integrations
+- [conform.nvim](https://github.com/stevearc/conform.nvim) for formatting, [Solargraph](https://solargraph.org/) for Ruby LSP
+- Legacy Vim config (`.vimrc`, `.vim/`) also included
+
+### Git
+
+- [git-delta](https://github.com/dandavella/delta) as pager for both `git` and `gh`
+- `nvimdiff` for diffs, [Diffview](https://github.com/sindrets/diffview.nvim) for merges
+- `zdiff3` conflict style, `histogram` diff algorithm
+- `rerere` enabled for remembering conflict resolutions
+- Auto-prune on fetch, rebase on pull with auto-stash
+- Branches sorted by most recent commit
+- Push defaults: `autoSetupRemote`, push to `current`
+- SSH protocol enforced for GitHub URLs
+- Local overrides via `~/.gitconfig.local` (gitignored)
+- Global gitignore (`.config/git/ignore`): `.DS_Store`, `.env*`, `.idea/`, `.vscode/`, `*.log`, `.direnv/`, swap files
+
+### CLI Tools
+
+Installed via Homebrew ([`.Brewfile`](.Brewfile)):
+
+| Tool | Description |
+|------|-------------|
+| [bat](https://github.com/sharkdp/bat) | `cat` replacement with syntax highlighting (aliased: `cat`) |
+| [eza](https://github.com/eza-community/eza) | `ls` replacement with icons and git status (aliased: `ls`, `ll`, `la`, `tree`) |
+| [fzf](https://github.com/junegunn/fzf) | Fuzzy finder for files, history, and more |
+| [ripgrep](https://github.com/BurntSushi/ripgrep) | Fast recursive grep (smart-case, searches hidden files) |
+| [fd](https://github.com/sharkdp/fd) | Fast `find` replacement |
+| [zoxide](https://github.com/ajdiber/zoxide) | Smarter `cd` that learns your habits |
+| [yazi](https://yazi-rs.github.io/) | Terminal file manager |
+| [lazygit](https://github.com/jesseduffield/lazygit) | Terminal UI for git |
+| [git-delta](https://github.com/dandavella/delta) | Beautiful git diffs |
+| [btop](https://github.com/aristocratos/btop) | System resource monitor |
+| [httpie](https://httpie.io/) | User-friendly HTTP client |
+| [tldr](https://tldr.sh/) | Simplified man pages |
+| [jq](https://jqlang.github.io/jq/) | JSON processor |
+| [gh](https://cli.github.com/) | GitHub CLI |
+| [direnv](https://direnv.net/) | Per-directory environment variables (auto-loads `.env` files) |
+
+### Version Management
+
+[asdf](https://asdf-vm.com/) manages runtime versions for Ruby, Node.js, Python, and Terraform. See [`.tool-versions`](.tool-versions) for current versions.
+
+### macOS Defaults
+
+The `scripts/mac-defaults.sh` script configures:
+
+- **Finder**: Show hidden files, show all extensions, list view by default, no extension change warnings
+- **Dock**: Only show running apps, auto-hide, don't rearrange Spaces
+- **System**: Disable smart quotes/dashes, expand save dialogs, auto light/dark mode, silence system sounds
+- **Storage**: Don't create `.DS_Store` on network or USB volumes
+- **Hot corners**: Bottom-right locks screen
+
+### AI Tools
+
+- [Claude Code](https://claude.ai/claude-code) with global instructions (`.claude.md`), custom skills, hooks, and MCP plugins
+- [Codex](https://github.com/openai/codex) (`.codex/`)
+- [Copilot](https://github.com/features/copilot) via Neovim
+- [Ollama](https://ollama.ai/) for local models
+
+### Networking
+
+`scripts/networking.sh` sets DNS to [Cloudflare](https://1.1.1.1/) (1.1.1.1 / 1.0.0.1) on all Wi-Fi, Ethernet, and USB interfaces.
+
+### Ruby / Rails
+
+- `.gemrc`: Skip documentation on gem install
+- `.rspec`: Color output
+- `.irbrc`: Auto-enable ActiveRecord logging in Rails console, auto-start Pry
+- `.pryrc`: Debugger aliases (`c`/`s`/`n`/`f`), ActiveRecord logging, repeat-last-command on Enter
+
+## Secrets
 
 Secrets are managed with [1Password CLI](https://developer.1password.com/docs/cli/) using template files. The `scripts/secrets.sh` script finds all `.tpl` files and uses `op inject` to populate the real config files with values from your 1Password vault.
 
-## Adding a new secret
+### Adding a new secret
 
 1. Create a template file alongside the real config file, with a `.tpl` extension:
 
@@ -51,7 +184,7 @@ Secrets are managed with [1Password CLI](https://developer.1password.com/docs/cl
 
    This also runs automatically during `init.sh`.
 
-## Project files
+## Project Files
 
 Project-specific files (secrets, local config, editor settings) are stored in `~/.project-templates/` and copied into `~/dev/` using the `create_project_files` script.
 
@@ -64,7 +197,7 @@ The directory structure under `~/.project-templates/<project>/` mirrors the proj
   settings/local.py                 # raw file: copied as-is
 ```
 
-- **`.tpl` files** are processed with `op inject` — use `{{ op://Vault/Item/Field }}` for secrets
+- **`.tpl` files** are processed with `op inject` -- use `{{ op://Vault/Item/Field }}` for secrets
 - **All other files** are copied directly
 
 ### Adding project files
@@ -104,9 +237,39 @@ The directory structure under `~/.project-templates/<project>/` mirrors the proj
    create_project_files sanctum/otter
    ```
 
-## Conventions
+### Conventions
 
 - System secret templates (e.g. `~/.aws/credentials.tpl`) live next to the real config file and are injected by `scripts/secrets.sh`
 - Project files live in `~/.project-templates/<project-path>/` and are populated by `create_project_files`
 - Only `.tpl` files inside hidden directories under `$HOME` (max depth 3) are discovered automatically by `secrets.sh`
 - Never track real files containing secrets in source control
+
+## Key Aliases
+
+| Alias | Command | Description |
+|-------|---------|-------------|
+| `config` | `git --git-dir=$HOME/.dotfiles/ ...` | Manage dotfiles repo |
+| `vim` | `nvim` | Neovim |
+| `cat` | `bat` | Syntax-highlighted cat |
+| `ls` | `eza` | Modern ls |
+| `ll` | `eza -l` | Long listing |
+| `la` | `eza -la` | Long listing with hidden files |
+| `tree` | `eza --tree` | Tree view |
+| `lg` | `lazygit` | Git TUI |
+| `lazycfg` | lazygit for dotfiles | Manage dotfiles in lazygit |
+| `s` | `bundle exec rspec spec` | Run RSpec tests |
+| `rspec` | `bundle exec rspec` | Run RSpec |
+| `dbm` | `bundle exec rails db:migrate` | Rails migrations |
+| `mux` | `tmuxinator` | Tmux session manager |
+| `dcw` | `docker compose watch` | Docker Compose watch mode |
+| `brewdump` | `brew bundle dump ...` | Update Brewfile |
+
+## Refreshing an Existing Machine
+
+To pull the latest dotfiles and re-run setup on a machine that's already configured:
+
+```sh
+source ~/scripts/refresh.sh
+```
+
+This fetches and runs `init.sh` from the remote, which handles pulling updates, reinstalling packages, and re-injecting secrets.
