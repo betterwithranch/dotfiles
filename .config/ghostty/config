@@ -1,4 +1,8 @@
 theme = Solarized Dark Higher Contrast
+font-family = Hack Nerd Font
+font-size = 14
+window-padding-x = 4
+window-padding-y = 4
 
 # keybind = ctrl+u>'=new_split:right
 # keybind = ctrl+u>shift+5=new_split:down
