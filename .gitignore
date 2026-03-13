@@ -96,18 +96,17 @@ scripts/pair.yml
 # cagent runtime
 .config/cagent
 
-Applications
-Calibre Library
-Desktop
-dev
-Documents
-Downloads
-go
-Library
-macos
-Movies
-Music
-obsidian
-Pictures
-Public
+/Applications
+/Calibre Library
+/Desktop
+/dev
+/Documents
+/Downloads
+/go
+/Library
+/macos
+/Movies
+/Music
+/Pictures
+/Public
 
