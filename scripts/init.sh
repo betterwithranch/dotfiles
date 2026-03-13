@@ -64,6 +64,9 @@ fi
 
 source "$HOME/scripts/mac-defaults.sh"
 
+# Set up Finder sidebar favorites
+source "$HOME/scripts/finder-favorites.sh"
+
 # Install neovim plugins
 echo "Installing neovim plugins"
 nvim --headless "+Lazy! sync" +qa
