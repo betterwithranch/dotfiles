@@ -31,10 +31,6 @@ alias s="bundle exec rspec spec"
 alias pspec="bin/pspec"
 alias vim=nvim
 alias cat="bat"
-alias ls="eza"
-alias ll="eza -l"
-alias la="eza -la"
-alias tree="eza --tree"
 alias tmux="TERM=screen-256color-bce tmux"
 alias mux="tmuxinator"
 alias rspec="bundle exec rspec"
@@ -56,7 +52,7 @@ alias lazycfg='GIT_DIR=$HOME/.dotfiles GIT_WORK_TREE=$HOME GIT_CONFIG_COUNT=1 GI
 alias lcg=lazycfg
 
 # Zsh plugins
-plugins=(aws asdf direnv docker docker-compose git pipenv rails ruby)
+plugins=(aws asdf brew direnv docker docker-compose eza fzf gh git golang kubectl macos npm pip pipenv rails ruby terraform tmux tmuxinator uv yarn)
 source "$ZSH/oh-my-zsh.sh"
 
 export PATH="$PATH:$(yarn global bin)"
@@ -86,9 +82,6 @@ dcleanup(){
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
-
-# fzf shell integration (Ctrl+R, Ctrl+T, Alt+C, **<tab>)
-source <(fzf --zsh)
 
 # fzf Solarized Dark colors
 export FZF_DEFAULT_OPTS='
