@@ -6,7 +6,3 @@ if [ -x /opt/homebrew/bin/brew ]; then
   fi
 fi
 
-if command -v ngrok &>/dev/null; then
-  eval "$(ngrok completion)"
-fi
-

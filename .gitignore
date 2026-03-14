@@ -15,6 +15,7 @@
 .claude/plugins/cache
 .claude/projects/*
 .claude/session-state
+.claude/sessions
 .claude/shell-snapshots
 .claude/tasks
 .claude/stats-cache.json

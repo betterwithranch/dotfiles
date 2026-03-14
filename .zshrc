@@ -55,6 +55,10 @@ alias lcg=lazycfg
 plugins=(aws asdf brew direnv docker docker-compose eza fzf gh git golang kubectl macos npm pip pipenv rails ruby terraform tmux tmuxinator uv yarn)
 source "$ZSH/oh-my-zsh.sh"
 
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
+
 export PATH="$PATH:$(yarn global bin)"
 export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_installed
 
