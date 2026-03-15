@@ -78,6 +78,7 @@
       "mcp__chrome-devtools__take_snapshot",
       "mcp__chrome-devtools__upload_file",
       "mcp__chrome-devtools__wait_for",
+      "mcp__logfire__arbitrary_query",
       "mcp__smartbear__bugsnag_get_event_details_from_dashboard_url",
       "Skill(frontend-design:*)",
       "mcp__shortcut__stories-create",
