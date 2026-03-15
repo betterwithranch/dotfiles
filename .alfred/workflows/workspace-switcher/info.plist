@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.dotfiles.workspace-switcher</string>
+	<key>description</key>
+	<string>Switch Hammerspoon workspaces via Alfred</string>
+	<key>name</key>
+	<string>Workspace Switcher</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>ws</string>
+				<key>text</key>
+				<string>Workspace Switcher</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>keyword-ws</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>script</key>
+				<string>$HOME/.alfred/workflows/workspace-switcher/list-workspaces.sh</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>scriptfilter</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>script</key>
+				<string>$HOME/.alfred/workflows/workspace-switcher/run-workspace.sh {query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>runscript</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<string>1.0</string>
+</dict>
+</plist>
