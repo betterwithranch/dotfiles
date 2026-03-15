@@ -78,23 +78,43 @@ function M.switchWorkspace(name)
 
 	hs.alert.show(ws.icon .. " " .. ws.name)
 
-	hs.spaces.gotoSpace(space)
+	local function doSwitch()
+		hs.spaces.gotoSpace(space)
 
-	-- Focus a window on the target space
-	hs.timer.doAfter(0.3, function()
-		local spaceWins = hs.spaces.windowsForSpace(space)
-		if not spaceWins then return end
+		-- Focus a window on the target space
+		hs.timer.doAfter(0.3, function()
+			local spaceWins = hs.spaces.windowsForSpace(space)
+			if not spaceWins then return end
 
-		for _, winID in ipairs(spaceWins) do
-			local win = hs.window.get(winID)
-			if win and win:isVisible() then
-				win:focus()
-				return
+			for _, winID in ipairs(spaceWins) do
+				local win = hs.window.get(winID)
+				if win and win:isVisible() then
+					win:focus()
+					return
+				end
 			end
-		end
-	end)
+		end)
 
-	helpers.ensureWorkspaceApps(ws, space)
+		helpers.ensureWorkspaceApps(ws, space)
+	end
+
+	-- Wait for modifiers to be released before switching,
+	-- otherwise macOS shows Mission Control overview
+	local mods = hs.eventtap.checkKeyboardModifiers()
+	if mods.ctrl or mods.alt or mods.cmd or mods.shift then
+		local tap
+		tap = hs.eventtap.new({ hs.eventtap.event.types.flagsChanged }, function(event)
+			local flags = event:getFlags()
+			if not (flags.ctrl or flags.alt or flags.cmd or flags.shift) then
+				tap:stop()
+				doSwitch()
+			end
+			return false
+		end)
+		tap:start()
+	else
+		doSwitch()
+	end
 end
 
 --------------------------------------------------
