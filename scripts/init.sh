@@ -71,6 +71,20 @@ source "$HOME/scripts/finder-favorites.sh"
 echo "Installing neovim plugins"
 nvim --headless "+Lazy! sync" +qa
 
+# Launch apps so macOS registers them for permissions
+pgrep -x "Hammerspoon" >/dev/null || open -g -a Hammerspoon
+pgrep -x "Alfred" >/dev/null || open -g -a Alfred
+pgrep -x "Ghostty" >/dev/null || open -g -a Ghostty
+
+# Permissions
+source "$HOME/scripts/macos-permissions.sh"
+
+# Install hammerspoon
+source "$HOME/scripts/hammerspoon-init.sh"
+
+# Install workspace automation
+source "$HOME/scripts/bootstrap-workspace.sh"
+
 # Restore temporary git config changes
 config checkout .gitconfig
 
