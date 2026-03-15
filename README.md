@@ -22,10 +22,14 @@ This single command will:
 8. Install [Claude Code](https://claude.ai/claude-code)
 9. Install language runtimes via [asdf](https://asdf-vm.com/)
 10. Configure [pam-reattach](https://github.com/fabianishere/pam-reattach) (Touch ID in tmux)
-11. Apply macOS system preferences
-12. Install [Neovim](https://neovim.io/) plugins
-13. Inject secrets from [1Password CLI](https://developer.1password.com/docs/cli/)
-14. Generate an SSH key and register it with GitHub
+11. Apply macOS system preferences and menu bar configuration
+12. Set up Finder sidebar favorites
+13. Install [Neovim](https://neovim.io/) plugins
+14. Launch and configure [Hammerspoon](https://www.hammerspoon.org/), [Alfred](https://www.alfredapp.com/), [Ghostty](https://ghostty.org/), and [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
+15. Grant macOS permissions (Accessibility, Input Monitoring, etc.)
+16. Bootstrap workspace automation
+17. Inject secrets from [1Password CLI](https://developer.1password.com/docs/cli/)
+18. Generate an SSH key and register it with GitHub
 
 ## Managing Dotfiles
 
@@ -119,12 +123,53 @@ Installed via Homebrew ([`.Brewfile`](.Brewfile)):
 
 [asdf](https://asdf-vm.com/) manages runtime versions for Ruby, Node.js, Python, and Terraform. See [`.tool-versions`](.tool-versions) for current versions.
 
+### Karabiner-Elements
+
+[Karabiner-Elements](https://karabiner-elements.pqrs.org/) remaps Caps Lock into a **Hyper key** (`ctrl+alt+cmd+shift`) when held, and **Escape** when tapped alone. This powers all workspace switching hotkeys. Config lives at `~/.config/karabiner/karabiner.json`.
+
+### Hammerspoon (Workspace Manager)
+
+[Hammerspoon](https://www.hammerspoon.org/) provides a full workspace management system. Config lives at `~/.config/hammerspoon/`.
+
+Each workspace maps to a macOS Space and has an associated Chrome profile and tmux session:
+
+| Workspace | Hotkey | Space | Chrome Profile | tmux Session |
+|-----------|--------|-------|---------------|--------------|
+| Personal | `Hyper+P` | 1 | craig@theisraels.net | personal |
+| Sanctum | `Hyper+S` | 2 | craig@hellosanctum.com | sanctum |
+| SendCarrot | `Hyper+C` | 3 | craig@sendcarrot.com | sendcarrot |
+| MergeFreeze | `Hyper+M` | 4 | hello@mergefreeze.com | mergefreeze |
+
+Additional hotkeys:
+
+| Hotkey | Action |
+|--------|--------|
+| `Ctrl+Tab` | Next workspace |
+| `Ctrl+Shift+Tab` | Previous workspace |
+| `Hyper+R` | Reload Hammerspoon config |
+
+Features:
+- **Menu bar indicator** shows the current workspace name and icon, persists position across restarts
+- **Auto-focus** brings the frontmost window on the target space into focus after switching
+- **App bootstrapping** ensures Ghostty (with the correct tmux session) and Chrome (with the correct profile) are running when switching to a workspace
+- **Chrome profile detection** uses `lsof` to reliably check which profiles are active
+- **Space refresh** re-discovers macOS space IDs every 60 seconds (macOS renumbers them occasionally)
+
+Workspace configs are individual Lua files in `~/.config/hammerspoon/workspaces/`.
+
+### Alfred Workflow (Workspace Switcher)
+
+An [Alfred](https://www.alfredapp.com/) workflow provides a searchable workspace picker. Type `ws` in Alfred to list all workspaces and switch to one. The workflow calls into Hammerspoon via `hs -c`, sharing the same switching logic as the hotkeys.
+
+Workflow files live at `~/.alfred/workflows/workspace-switcher/` and are symlinked into Alfred's preferences.
+
 ### macOS Defaults
 
-The `scripts/mac-defaults.sh` script configures:
+The `scripts/mac-defaults.sh` and `scripts/menubar.sh` scripts configure:
 
 - **Finder**: Show hidden files, show all extensions, list view by default, no extension change warnings
 - **Dock**: Only show running apps, auto-hide, don't rearrange Spaces
+- **Menu bar**: Show Battery, WiFi, Clock (day + AM/PM); hide Sound, Focus, Screen Mirroring, Now Playing, Siri
 - **System**: Disable smart quotes/dashes, expand save dialogs, auto light/dark mode, silence system sounds
 - **Storage**: Don't create `.DS_Store` on network or USB volumes
 - **Hot corners**: Bottom-right locks screen
