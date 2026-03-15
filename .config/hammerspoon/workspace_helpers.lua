@@ -66,14 +66,26 @@ local function resolveChromeProfile(search)
 
 	search = search:lower()
 
+	-- First pass: exact email match on standard profile dirs (Default, Profile N)
 	for dir, info in pairs(profiles) do
 		local email = (info.user_name or ""):lower()
-
-		if email:find(search) then
+		if email == search and dir:match("^[DP]") then
 			return dir
 		end
+	end
 
-		if dir:lower():find(search) then
+	-- Second pass: exact email match on any dir
+	for dir, info in pairs(profiles) do
+		local email = (info.user_name or ""):lower()
+		if email == search then
+			return dir
+		end
+	end
+
+	-- Third pass: substring match
+	for dir, info in pairs(profiles) do
+		local email = (info.user_name or ""):lower()
+		if email:find(search, 1, true) then
 			return dir
 		end
 	end
@@ -82,20 +94,21 @@ local function resolveChromeProfile(search)
 end
 
 --------------------------------------------------
--- Chrome profile launcher (process detection)
+-- Chrome profile detection (lsof-based)
 --------------------------------------------------
-function H.isChromeProfileRunning(profile)
-	local output =
-		hs.execute("ps aux | grep 'Google Chrome' | grep -- '--profile-directory=" .. profile .. "' | grep -v grep")
-	return output ~= nil and output ~= ""
+function H.isChromeProfileRunning(profileDir)
+	local output = hs.execute(
+		"lsof -c 'Google Chrome' 2>/dev/null | grep -q 'Google/Chrome/" .. profileDir .. "/' && echo yes"
+	)
+	return output ~= nil and output:find("yes") ~= nil
 end
 
 function H.ensureChromeProfile(profile, spaceID)
 	local dir = resolveChromeProfile(profile)
-	if H.isChromeProfileRunning(dir) then
-		hs.alert.show(profile .. " is running")
-	else
-		hs.alert.show(profile .. " is NOT running")
+	if not H.isChromeProfileRunning(dir) then
+		hs.execute(
+			"open -na 'Google Chrome' --args --profile-directory='" .. dir .. "'"
+		)
 	end
 end
 

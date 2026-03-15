@@ -1,6 +1,7 @@
 local M = {}
 
 local spaces = require("hs.spaces")
+local helpers = require("workspace_helpers")
 
 local workspaces = {}
 local workspaceOrder = {}
@@ -78,6 +79,22 @@ function M.switchWorkspace(name)
 	hs.alert.show(ws.icon .. " " .. ws.name)
 
 	hs.spaces.gotoSpace(space)
+
+	-- Focus a window on the target space
+	hs.timer.doAfter(0.3, function()
+		local spaceWins = hs.spaces.windowsForSpace(space)
+		if not spaceWins then return end
+
+		for _, winID in ipairs(spaceWins) do
+			local win = hs.window.get(winID)
+			if win and win:isVisible() then
+				win:focus()
+				return
+			end
+		end
+	end)
+
+	helpers.ensureWorkspaceApps(ws, space)
 end
 
 --------------------------------------------------
@@ -182,7 +199,7 @@ end
 local menuBar = nil
 
 function M.startMenuIndicator()
-	menuBar = hs.menubar.new()
+	menuBar = hs.menubar.new(true, "A_workspace")
 
 	local function update()
 		local currentSpace = hs.spaces.focusedSpace()
@@ -214,6 +231,34 @@ function M.startSpaceRefresh()
 	hs.timer.doEvery(60, function()
 		M.discoverSpaces()
 	end)
+end
+
+--------------------------------------------------
+-- List workspaces (Alfred JSON)
+--------------------------------------------------
+
+function M.listWorkspaces()
+	local items = {}
+
+	for _, name in ipairs(workspaceOrder) do
+		local ws = workspaces[name]
+		local icon = ws.icon or "•"
+		local display = ws.name or name
+
+		table.insert(items, {
+			title = icon .. " " .. display,
+			subtitle = "Switch to " .. display,
+			arg = name,
+		})
+	end
+
+	table.insert(items, {
+		title = "🛠 Workspace Health",
+		subtitle = "Repair workspace state",
+		arg = "__health__",
+	})
+
+	return hs.json.encode({ items = items })
 end
 
 --------------------------------------------------
