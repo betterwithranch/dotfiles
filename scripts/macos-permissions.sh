@@ -13,10 +13,17 @@ echo "Accessibility"
 echo "  ✓ Hammerspoon"
 echo "  ✓ Alfred"
 echo "  ✓ Ghostty"
+echo "  ✓ Karabiner-Elements (karabiner_grabber)"
+echo ""
+echo "Input Monitoring"
+echo "  ✓ Karabiner-Elements (karabiner_grabber, karabiner_observer)"
 echo ""
 echo "Screen Recording"
 echo "  ✓ Hammerspoon"
 echo "  ✓ Alfred"
+echo ""
+echo "Login Items & Extensions → Driver Extensions"
+echo "  ✓ Karabiner-Elements (org.pqrs.Karabiner-DriverKit-VirtualHIDDevice)"
 echo ""
 echo "Full Disk Access (optional)"
 echo "  ✓ Alfred"
@@ -35,6 +42,16 @@ open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibil
 read -p "Press ENTER after enabling the apps above..."
 
 ########################################
+# Input Monitoring
+########################################
+
+echo ""
+echo "Opening Input Monitoring settings..."
+open "x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent"
+
+read -p "Press ENTER after enabling the apps above..."
+
+########################################
 # Screen Recording
 ########################################
 
@@ -43,6 +60,17 @@ echo "Opening Screen Recording settings..."
 open "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture"
 
 read -p "Press ENTER after enabling the apps above..."
+
+########################################
+# Login Items & Extensions
+########################################
+
+echo ""
+echo "Opening Login Items & Extensions settings..."
+echo "Enable the Karabiner DriverKit VirtualHIDDevice driver extension."
+open "x-apple.systempreferences:com.apple.LoginItems-Settings.extension"
+
+read -p "Press ENTER after enabling the driver extension..."
 
 ########################################
 # Full Disk Access

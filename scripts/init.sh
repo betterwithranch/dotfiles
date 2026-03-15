@@ -64,6 +64,9 @@ fi
 
 source "$HOME/scripts/mac-defaults.sh"
 
+# Configure menu bar
+source "$HOME/scripts/menubar.sh"
+
 # Set up Finder sidebar favorites
 source "$HOME/scripts/finder-favorites.sh"
 
@@ -75,6 +78,7 @@ nvim --headless "+Lazy! sync" +qa
 pgrep -x "Hammerspoon" >/dev/null || open -g -a Hammerspoon
 pgrep -x "Alfred" >/dev/null || open -g -a Alfred
 pgrep -x "Ghostty" >/dev/null || open -g -a Ghostty
+pgrep -x "karabiner_grabber" >/dev/null || open -g -a "Karabiner-Elements"
 
 # Permissions
 source "$HOME/scripts/macos-permissions.sh"
