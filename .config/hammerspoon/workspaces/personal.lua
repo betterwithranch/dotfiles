@@ -3,7 +3,7 @@ return {
 	icon = "🟢",
 	spaceIndex = 1,
 	hotkey = {
-		modifiers = { "ctrl" },
+		modifiers = { "ctrl", "alt", "cmd", "shift" },
 		key = "p",
 	},
 	chromeProfile = "craig@theisraels.net",

@@ -1,10 +1,10 @@
 return {
-	name = "Sanctum",
+	name = "sanctum",
 	icon = "🔵",
 	spaceIndex = 2,
 	hotkey = {
-		modifiers = { "ctrl" },
-		key = "a",
+		modifiers = { "ctrl", "alt", "cmd", "shift" },
+		key = "s",
 	},
 	chromeProfile = "craig@hellosanctum.com",
 	tmuxSession = "sanctum",

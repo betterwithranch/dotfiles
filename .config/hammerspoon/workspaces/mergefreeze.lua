@@ -3,9 +3,9 @@ return {
 	icon = "🟠",
 	spaceIndex = 4,
 	hotkey = {
-		modifiers = { "ctrl" },
+		modifiers = { "ctrl", "alt", "cmd", "shift" },
 		key = "m",
 	},
-	chromeProfile = "craig@mergefreeze.com",
+	chromeProfile = "hello@mergefreeze.com",
 	tmuxSession = "mergefreeze",
 }
