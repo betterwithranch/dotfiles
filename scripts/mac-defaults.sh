@@ -83,6 +83,14 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
+# Desktop switching shortcuts
+# add 79 and 80 to disable arrow switching
+for id in 118 119 120 121; do
+  /usr/libexec/PlistBuddy \
+    -c "Set :AppleSymbolicHotKeys:$id:enabled false" \
+    ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null
+done
+
 killall Dock
 killall Finder
 killall SystemUIServer

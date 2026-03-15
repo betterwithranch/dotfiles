@@ -2,7 +2,10 @@ return {
 	name = "SendCarrot",
 	icon = "🟣",
 	spaceIndex = 3,
-	hotkey = "b",
+	hotkey = {
+		modifiers = { "ctrl" },
+		key = "b",
+	},
 	chromeProfile = "craig@sendcarrot.com",
 	tmuxSession = "sendcarrot",
 }
