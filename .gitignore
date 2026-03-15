@@ -96,6 +96,7 @@ scripts/pair.yml
 
 # cagent runtime
 .config/cagent
+.config/karabiner/automatic_backups
 
 /Applications
 /Calibre Library
