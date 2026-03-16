@@ -5,9 +5,36 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Caps Lock → Hyper (ctrl+alt+cmd+shift) when held, Escape when tapped alone",
+                        "description": "Caps Lock → Hyper (ctrl+alt+cmd+shift) when held, Escape when tapped alone, double-tap for Caps Lock",
                         "manipulators": [
                             {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "conditions": [
+                                    {
+                                        "type": "variable_if",
+                                        "name": "caps_lock_tapped",
+                                        "value": 1
+                                    }
+                                ],
+                                "to": [
+                                    {
+                                        "key_code": "caps_lock",
+                                        "hold_down_milliseconds": 100
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock_tapped",
+                                            "value": 0
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
@@ -32,8 +59,36 @@
                                         }
                                     }
                                 ],
-                                "to_if_alone": [{ "key_code": "escape" }],
-                                "type": "basic"
+                                "to_if_alone": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock_tapped",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_delayed_action": {
+                                    "to_if_invoked": [
+                                        { "key_code": "escape" },
+                                        {
+                                            "set_variable": {
+                                                "name": "caps_lock_tapped",
+                                                "value": 0
+                                            }
+                                        }
+                                    ],
+                                    "to_if_canceled": [
+                                        {
+                                            "set_variable": {
+                                                "name": "caps_lock_tapped",
+                                                "value": 0
+                                            }
+                                        }
+                                    ]
+                                },
+                                "parameters": {
+                                    "basic.to_delayed_action_delay_milliseconds": 300
+                                }
                             }
                         ]
                     }

@@ -1,5 +1,7 @@
 require("hs.ipc")
 
+hs.autoLaunch(true)
+
 local workspace = require("workspace_manager")
 workspace.init()
 
