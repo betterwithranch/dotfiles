@@ -1,8 +1,17 @@
 #!/usr/bin/env zsh
 
+local test_mode=false
+if [[ "$1" == "--test" ]]; then
+  test_mode=true
+fi
+
 echo
 echo
-echo "Secrets (1Password)"
+if $test_mode; then
+  echo "Secrets (1Password) — TEST MODE"
+else
+  echo "Secrets (1Password)"
+fi
 echo
 echo
 
@@ -57,11 +66,34 @@ for doc_title in "${TPL_DOCS[@]}"; do
   # Download template to temp dir
   local tpl_file="$tmpdir/$(basename "$target_path")"
   op document get "$doc_title" --account "$tpl_account" --out-file "$tpl_file" --force 2>/dev/null
-  # Inject secrets from temp template into target
-  echo "  Injecting $doc_title -> $target"
-  if ! op inject -f -i "$tpl_file" -o "$target"; then
-    echo "Error injecting $doc_title"
-    return 1
+  # Inject secrets from temp template into target (or .out file in test mode)
+  if $test_mode; then
+    local out_file="${target}.out"
+    echo "  Injecting $doc_title -> $out_file (test)"
+    if ! op inject -f -i "$tpl_file" -o "$out_file"; then
+      echo "Error injecting $doc_title"
+      return 1
+    fi
+    if [[ -f "$target" ]]; then
+      local diff_output
+      diff_output=$(diff "$target" "$out_file" 2>&1)
+      if [[ $? -eq 0 ]]; then
+        echo "    No differences"
+      else
+        echo "    Differences found:"
+        echo "$diff_output" | sed 's/^/    /'
+      fi
+    else
+      echo "    Target $target does not exist yet (new file)"
+    fi
+    rm -f "$out_file"
+    echo
+  else
+    echo "  Injecting $doc_title -> $target"
+    if ! op inject -f -i "$tpl_file" -o "$target"; then
+      echo "Error injecting $doc_title"
+      return 1
+    fi
   fi
   ((inject_count++))
 done
@@ -71,4 +103,8 @@ if [[ $inject_count -eq 0 ]]; then
   return 0
 fi
 
-echo "Secrets injected successfully ($inject_count templates)"
+if $test_mode; then
+  echo "Test complete ($inject_count templates compared)"
+else
+  echo "Secrets injected successfully ($inject_count templates)"
+fi
