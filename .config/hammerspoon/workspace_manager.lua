@@ -9,6 +9,18 @@ local workspacePath = os.getenv("HOME") .. "/.config/hammerspoon/workspaces/"
 
 local spaceMap = {}
 
+local function getWorkspace(name)
+	return workspaces[name]
+end
+
+local function getWorkspaceSpace(ws)
+	if not ws then
+		return nil
+	end
+
+	return spaceMap[ws.spaceIndex]
+end
+
 --------------------------------------------------
 -- Discover Spaces
 --------------------------------------------------
@@ -62,14 +74,14 @@ end
 --------------------------------------------------
 
 function M.switchWorkspace(name)
-	local ws = workspaces[name]
+	local ws = getWorkspace(name)
 
 	if not ws then
 		print("Workspace not found:", name)
 		return
 	end
 
-	local space = spaceMap[ws.spaceIndex]
+	local space = getWorkspaceSpace(ws)
 
 	if not space then
 		print("Space not found for workspace:", name)
@@ -115,6 +127,30 @@ function M.switchWorkspace(name)
 	else
 		doSwitch()
 	end
+end
+
+function M.openChromeWorkspace(name)
+	local ws = getWorkspace(name)
+
+	if not ws then
+		print("Workspace not found:", name)
+		return
+	end
+
+	if not ws.chromeProfile then
+		print("Workspace has no chrome profile:", name)
+		return
+	end
+
+	local space = getWorkspaceSpace(ws)
+
+	if not space then
+		print("Space not found for workspace:", name)
+		return
+	end
+
+	hs.alert.show((ws.icon or "•") .. " " .. ws.name .. " Chrome")
+	helpers.openChromeProfileOnSpace(ws.chromeProfile, space)
 end
 
 --------------------------------------------------
@@ -277,6 +313,27 @@ function M.listWorkspaces()
 		subtitle = "Repair workspace state",
 		arg = "__health__",
 	})
+
+	return hs.json.encode({ items = items })
+end
+
+function M.listChromeWorkspaces()
+	local items = {}
+
+	for _, name in ipairs(workspaceOrder) do
+		local ws = workspaces[name]
+
+		if ws.chromeProfile then
+			local icon = ws.icon or "•"
+			local display = ws.name or name
+
+			table.insert(items, {
+				title = icon .. " " .. display,
+				subtitle = "Open " .. display .. " Chrome on Desktop " .. tostring(ws.spaceIndex),
+				arg = name,
+			})
+		end
+	end
 
 	return hs.json.encode({ items = items })
 end
